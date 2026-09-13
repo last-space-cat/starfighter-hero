@@ -20,10 +20,13 @@ public class Main extends Application{
         primaryStage.setHeight(screen_bounds.getHeight());
 
         Main_Menu menu = new Main_Menu();
-        Scene main_menu = new Scene(menu);
+        Scene main_scene = new Scene(menu);
+
+        String css = this.getClass().getResource("main/resources/styles.css").toExternalForm();
+        main_scene.getStylesheets().add(css);
 
         primaryStage.setTitle("Starfighter Hero");
-        primaryStage.setScene(main_menu);
+        primaryStage.setScene(main_scene);
         primaryStage.show();
     }
 

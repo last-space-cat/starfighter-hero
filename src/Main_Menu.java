@@ -1,15 +1,19 @@
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
-
 public class Main_Menu extends StackPane{
     public Main_Menu() {
         Button button_play = init_menu_button("New Game");
         Button button_load = init_menu_button("Load Game");
-        Button button_credits = init_menu_button("Credits");
+        Button button_credits = init_menu_button("Achievements");
         Button button_quit = init_menu_button("Quit");
+
+        //ДОБАВИТЬ ЛОГИКУ НА 1, 2 и 3 КНОПКИ
+
+        button_quit.setOnAction(event -> Platform.exit());
 
         VBox box = new VBox(20);
         box.setAlignment(Pos.CENTER);
@@ -31,13 +35,7 @@ public class Main_Menu extends StackPane{
     private Button init_menu_button(String text){
         Button new_button = new Button(text);
         new_button.setPrefSize(200, 50);
-        new_button.setStyle("-fx-font-size: 20;" +
-                "-fx-font-family: 'Courier New';" +
-                "-fx-background-color: #000000;" +
-                "-fx-border-width: 3;" +
-                "-fx-border-color: #ffffff;" +
-                "-fx-text-fill: #ffffff;"
-        );
+        new_button.getStyleClass().add("menu-button");
         return new_button;
     }
 }
