@@ -1,24 +1,22 @@
-import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
-public class Main_Menu extends StackPane{
-    public Main_Menu(ScreenManager handling_manager) {
-        Button button_play = init_menu_button("New Game");
-        Button button_load = init_menu_button("Load Game");
-        Button button_achievements = init_menu_button("Achievements");
-        Button button_quit = init_menu_button("Quit");
+public class LoadMenu extends StackPane {
+    public LoadMenu(ScreenManager handling_manager){
+        Button slot_1 = init_menu_button("Empty save");
+        Button slot_2 = init_menu_button("Empty save");
+        Button slot_3 = init_menu_button("Empty save");
+        Button back_button = init_menu_button("Back");
 
-        //ДОБАВИТЬ ЛОГИКУ НА 1 и 3 КНОПКИ
-
-        button_load.setOnAction(event-> handling_manager.go_to_load());
-        button_quit.setOnAction(event -> Platform.exit());
+        back_button.setOnAction(event -> handling_manager.go_to_main());
 
         VBox box = new VBox(20);
         box.setAlignment(Pos.CENTER);
-        box.getChildren().addAll(button_play, button_load, button_achievements, button_quit);
+        box.getChildren().addAll(slot_1, slot_2, slot_3, back_button);
+        VBox.setMargin(back_button, new Insets(30, 0, 0, 0));
 
         getChildren().add(box);
         setAlignment(Pos.CENTER);
@@ -38,5 +36,5 @@ public class Main_Menu extends StackPane{
         new_button.setPrefSize(200, 50);
         new_button.getStyleClass().add("menu-button");
         return new_button;
-    }
+    } // ВРЕМЕННЫЙ МЕТОД, ПОЗЖЕ НАДО ДОБАВИТЬ ФУНКЦИОНАЛ ЗАГРУЗКИ СЕЙВОВ ИЗ ФАЙЛА
 }

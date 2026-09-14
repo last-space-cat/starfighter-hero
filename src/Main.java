@@ -7,20 +7,23 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
-
 public class Main extends Application{
 
     @Override
     public void start (Stage primaryStage) throws IOException {
-
         Rectangle2D screen_bounds = Screen.getPrimary().getBounds();
         primaryStage.setX(screen_bounds.getMinX());
         primaryStage.setY(screen_bounds.getMinY());
         primaryStage.setWidth(screen_bounds.getWidth());
         primaryStage.setHeight(screen_bounds.getHeight());
 
-        Main_Menu menu = new Main_Menu();
-        Scene main_scene = new Scene(menu);
+        Scene main_scene = new Scene(new StackPane());
+        ScreenManager manager = new ScreenManager(main_scene);
+        Main_Menu main_menu = new Main_Menu(manager);
+        LoadMenu load_menu = new LoadMenu(manager);
+        manager.set_main_reference(main_menu);
+        manager.set_load_reference(load_menu);
+        manager.go_to_main();
 
         String css = this.getClass().getResource("main/resources/styles.css").toExternalForm();
         main_scene.getStylesheets().add(css);
@@ -34,5 +37,3 @@ public class Main extends Application{
         Application.launch(args);
     }
 }
-
-
