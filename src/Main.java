@@ -7,23 +7,33 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
-
 public class Main extends Application{
 
     @Override
     public void start (Stage primaryStage) throws IOException {
-
         Rectangle2D screen_bounds = Screen.getPrimary().getBounds();
         primaryStage.setX(screen_bounds.getMinX());
         primaryStage.setY(screen_bounds.getMinY());
         primaryStage.setWidth(screen_bounds.getWidth());
         primaryStage.setHeight(screen_bounds.getHeight());
 
-        Main_Menu menu = new Main_Menu();
-        Scene main_menu = new Scene(menu);
+        Scene main_scene = new Scene(new StackPane());
+        ScreenManager manager = new ScreenManager(main_scene);
+        MainMenu main_menu = new MainMenu(manager);
+        LoadMenu load_menu = new LoadMenu(manager);
+        GameField game_field;
+        game_field = new GameField(manager, 1280, 800);
+        manager.set_main_reference(main_menu);
+        manager.set_load_reference(load_menu);
+        manager.set_game_reference(game_field);
+        //НЕ ЗАБЫВАТЬ ЗДЕСЬ ВЫЗЫВАТЬ СЕТТЕРЫ НА ВСЕ НУЖНЫЕ ЭКРАНЫ
+        manager.go_to_main();
+
+        String css = this.getClass().getResource("main/resources/styles.css").toExternalForm();
+        main_scene.getStylesheets().add(css);
 
         primaryStage.setTitle("Starfighter Hero");
-        primaryStage.setScene(main_menu);
+        primaryStage.setScene(main_scene);
         primaryStage.show();
     }
 
@@ -31,5 +41,3 @@ public class Main extends Application{
         Application.launch(args);
     }
 }
-
-
