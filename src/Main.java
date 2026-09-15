@@ -19,10 +19,14 @@ public class Main extends Application{
 
         Scene main_scene = new Scene(new StackPane());
         ScreenManager manager = new ScreenManager(main_scene);
-        Main_Menu main_menu = new Main_Menu(manager);
+        MainMenu main_menu = new MainMenu(manager);
         LoadMenu load_menu = new LoadMenu(manager);
+        GameField game_field;
+        game_field = new GameField(manager, 1280, 800);
         manager.set_main_reference(main_menu);
         manager.set_load_reference(load_menu);
+        manager.set_game_reference(game_field);
+        //НЕ ЗАБЫВАТЬ ЗДЕСЬ ВЫЗЫВАТЬ СЕТТЕРЫ НА ВСЕ НУЖНЫЕ ЭКРАНЫ
         manager.go_to_main();
 
         String css = this.getClass().getResource("main/resources/styles.css").toExternalForm();

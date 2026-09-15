@@ -4,21 +4,21 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
-public class Main_Menu extends StackPane{
-    public Main_Menu(ScreenManager handling_manager) {
+public class MainMenu extends StackPane{
+    public MainMenu(ScreenManager handling_manager) {
         Button button_play = init_menu_button("New Game");
         Button button_load = init_menu_button("Load Game");
-        Button button_achievements = init_menu_button("Achievements");
+        Button button_settings = init_menu_button("Settings");
         Button button_quit = init_menu_button("Quit");
 
-        //ДОБАВИТЬ ЛОГИКУ НА 1 и 3 КНОПКИ
-
+        //ДОБАВИТЬ ЛОГИКУ НА 3 КНОПКУ
+        button_play.setOnAction(event-> handling_manager.go_to_game());
         button_load.setOnAction(event-> handling_manager.go_to_load());
-        button_quit.setOnAction(event -> Platform.exit());
+        button_quit.setOnAction(event-> Platform.exit());
 
         VBox box = new VBox(20);
         box.setAlignment(Pos.CENTER);
-        box.getChildren().addAll(button_play, button_load, button_achievements, button_quit);
+        box.getChildren().addAll(button_play, button_load, button_settings, button_quit);
 
         getChildren().add(box);
         setAlignment(Pos.CENTER);
