@@ -12,7 +12,7 @@ public class PlayerShip {
     PlayerShip(double starting_x, double starting_y){ //ПОЗЖЕ НУЖНО ДОБАВИТЬ В КОНСТРУКТОР Campaign_State для установки апгрейдов
         x = starting_x;
         y = starting_y;
-        velocity = 40;
+        velocity = 400;
     }
 
     public double get_x(){return x;}
@@ -22,10 +22,10 @@ public class PlayerShip {
     public void update(double dt, Set<KeyCode> pressed_keys){
         double dx = 0, dy = 0;
 
-        if (pressed_keys.contains(KeyCode.W) || pressed_keys.contains(KeyCode.UP))    dy -= 1;
-        if (pressed_keys.contains(KeyCode.S) || pressed_keys.contains(KeyCode.DOWN))  dy += 1;
-        if (pressed_keys.contains(KeyCode.A) || pressed_keys.contains(KeyCode.LEFT))  dx -= 1;
-        if (pressed_keys.contains(KeyCode.D) || pressed_keys.contains(KeyCode.RIGHT)) dx += 1;
+        if (pressed_keys.contains(KeyCode.W) || pressed_keys.contains(KeyCode.UP))    dy -= dt;
+        if (pressed_keys.contains(KeyCode.S) || pressed_keys.contains(KeyCode.DOWN))  dy += dt;
+        if (pressed_keys.contains(KeyCode.A) || pressed_keys.contains(KeyCode.LEFT))  dx -= dt;
+        if (pressed_keys.contains(KeyCode.D) || pressed_keys.contains(KeyCode.RIGHT)) dx += dt;
 
         if (dx != 0 && dy != 0){
             dx *= 1/Math.sqrt(2);

@@ -1,7 +1,6 @@
 package game;
 
 import enemies.*;
-import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -22,8 +21,8 @@ public class GameField extends Pane {
     private final List<Enemy> enemies = new ArrayList<>();
     private final List<Enemy> enemy_spawn_queue = new ArrayList<>();
     private final BattleSystem battleManager = new BattleSystem();
-    private AnimationTimer game_loop;
-    private long duration;
+    private GameTimer game_loop;
+    private boolean paused = false;
 
     public GameField(ScreenManager handling_manager, double width, double height){
         canvas = new Canvas(width, height);
@@ -36,7 +35,7 @@ public class GameField extends Pane {
         pause_button.getStyleClass().add("menu-button");
         pause_button.relocate(1200, 20);
         getChildren().add(pause_button);
-        pause_button.setOnAction(event -> handling_manager.go_to_main());
+        pause_button.setOnAction(event -> handling_manager.toggle_pause());
         //ВРЕМЕННО КНОПКА ПАУЗЫ ОТПРАВЛЯЕТ НА ГЛАВНОЕ МЕНЮ, ПОМЕНЯТЬ ПОСЛЕ СОЗДАНИЯ ФУНКЦИОНАЛА ПАУЗЫ
         
         setup_input();
@@ -63,23 +62,16 @@ public class GameField extends Pane {
     }
 
     private void start_loop(){
-        duration = 0;
-        game_loop = new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                if (duration == 0) { duration = l; return; } //пропускаем первый кадр, чтобы dt не ломался
-                double dt = (double) (l - duration)/1000000000;
-                duration = l;
-
-                update(dt);
-                render();
-            }
-        };
-
+        game_loop = new GameTimer();
+        game_loop.set_parent(this);
         game_loop.start();
     }
 
-    private void update(double dt){
+    public void pause(){game_loop.stop();}
+
+    public void unpause(){game_loop.unpause();}
+
+    public void update(double dt){
         player.update(dt, pressed_keys);
         battleManager.update_bullets(dt, player, pressed_keys);
         for (Enemy enemy : enemies) {
@@ -90,6 +82,8 @@ public class GameField extends Pane {
             enemies.addAll(enemy_spawn_queue);
             enemy_spawn_queue.clear(); // Очищаем буфер для следующих спавнов
         }
+
+        render();
     }
 
     private void render(){
@@ -109,4 +103,8 @@ public class GameField extends Pane {
             }
         }
     }
+
+    public boolean is_paused() {return paused;}
+
+    public void set_paused(boolean paused) {this.paused = paused;}
 }

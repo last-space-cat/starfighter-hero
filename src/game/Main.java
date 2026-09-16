@@ -2,6 +2,7 @@ package game;
 
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -24,10 +25,12 @@ public class Main extends Application{
         MainMenu main_menu = new MainMenu(manager);
         LoadMenu load_menu = new LoadMenu(manager);
         GameField game_field;
-        game_field = new GameField(manager, 1280, 800);
+        game_field = new GameField(manager, Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
+        PauseMenu pause_menu = new PauseMenu(manager);
         manager.set_main_reference(main_menu);
         manager.set_load_reference(load_menu);
         manager.set_game_reference(game_field);
+        manager.set_pause_reference(pause_menu);
         //НЕ ЗАБЫВАТЬ ЗДЕСЬ ВЫЗЫВАТЬ СЕТТЕРЫ НА ВСЕ НУЖНЫЕ ЭКРАНЫ
         manager.go_to_main();
 
@@ -36,6 +39,8 @@ public class Main extends Application{
 
         primaryStage.setTitle("Starfighter Hero");
         primaryStage.setScene(main_scene);
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.show();
     }
 

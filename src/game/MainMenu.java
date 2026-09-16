@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.stage.Screen;
 
 public class MainMenu extends StackPane{
     public MainMenu(ScreenManager handling_manager) {
@@ -37,7 +38,9 @@ public class MainMenu extends StackPane{
 
     private Button init_menu_button(String text){
         Button new_button = new Button(text);
-        new_button.setPrefSize(200, 50);
+        new_button.setPrefSize(
+                Screen.getPrimary().getBounds().getWidth()*0.2,
+                Screen.getPrimary().getBounds().getHeight()*0.1);
         new_button.getStyleClass().add("menu-button");
         return new_button;
     }
