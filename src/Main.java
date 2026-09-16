@@ -7,22 +7,23 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
+//Main - основной класс. Фактически это и есть приложение. Здесь создаются основные компоненты и отрисовывается окно.
+//Здесь же нужно устанавливать иконку, название и т. п.
+
 public class Main extends Application{
 
     @Override
     public void start (Stage primaryStage) throws IOException {
         Rectangle2D screen_bounds = Screen.getPrimary().getBounds();
-        primaryStage.setX(screen_bounds.getMinX());
-        primaryStage.setY(screen_bounds.getMinY());
-        primaryStage.setWidth(screen_bounds.getWidth());
-        primaryStage.setHeight(screen_bounds.getHeight());
+        primaryStage.setMinWidth(screen_bounds.getWidth());
+        primaryStage.setMinHeight(screen_bounds.getHeight());
 
         Scene main_scene = new Scene(new StackPane());
         ScreenManager manager = new ScreenManager(main_scene);
         MainMenu main_menu = new MainMenu(manager);
         LoadMenu load_menu = new LoadMenu(manager);
         GameField game_field;
-        game_field = new GameField(manager, 1280, 800);
+        game_field = new GameField(manager, screen_bounds.getWidth(), screen_bounds.getHeight());
         manager.set_main_reference(main_menu);
         manager.set_load_reference(load_menu);
         manager.set_game_reference(game_field);
@@ -34,6 +35,7 @@ public class Main extends Application{
 
         primaryStage.setTitle("Starfighter Hero");
         primaryStage.setScene(main_scene);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 

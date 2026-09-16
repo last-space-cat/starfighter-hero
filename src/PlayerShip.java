@@ -1,16 +1,23 @@
 import javafx.scene.input.KeyCode;
+import javafx.stage.Screen;
 
 import java.util.Set;
+
+//Корабль игрока. Не использует тип, поскольку он у нас один.
 
 public class PlayerShip {
     private double x, y;
     private double velocity;
-    public static int width = 120, height = 40;
+    public static int width = 100, height = 50;
+    public double clamp_w;
+    public double clamp_h;
 
     PlayerShip(double starting_x, double starting_y){ //ПОЗЖЕ НУЖНО ДОБАВИТЬ В КОНСТРУКТОР Campaign_State для установки апгрейдов
         x = starting_x;
         y = starting_y;
-        velocity = 40;
+        velocity = 20;
+        clamp_w = Screen.getPrimary().getBounds().getWidth() - width;
+        clamp_h = Screen.getPrimary().getBounds().getHeight() - height;
     }
 
     public double get_x(){return x;}
@@ -30,11 +37,11 @@ public class PlayerShip {
             dy *= 1/Math.sqrt(2);
         }
 
-        x += dx*velocity;
-        y += dy*velocity;
+        x += dx*velocity*dt;
+        y += dy*velocity*dt;
 
-        x = Math.clamp(x, 0, 1280 - width);
-        y = Math.clamp(y, 0, 650 - height);
+        x = Math.clamp(x, 0, clamp_w);
+        y = Math.clamp(y, 0, clamp_h);
     }
 
 

@@ -4,6 +4,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
+//Главное меню. Кнопки и фон.
+
 public class MainMenu extends StackPane{
     public MainMenu(ScreenManager handling_manager) {
         Button button_play = init_menu_button("New Game");

@@ -4,6 +4,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
+//Меню загрузки сохранений. Позже нужно добавить функционал загрузки из файлов.
+
 public class LoadMenu extends StackPane {
     public LoadMenu(ScreenManager handling_manager){
         Button slot_1 = init_menu_button("Empty save");

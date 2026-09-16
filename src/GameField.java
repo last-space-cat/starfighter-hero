@@ -5,9 +5,10 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-
 import java.util.EnumSet;
 import java.util.Set;
+
+//Игровое поле. Здесь происходит игровой цикл, отрисовываются враги, препятствия и игрок.
 
 public class GameField extends Pane {
     private final Canvas canvas;
@@ -69,7 +70,9 @@ public class GameField extends Pane {
         graph_context.setFill(Color.BLACK);
         graph_context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        graph_context.setFill(Color.LIGHTGREEN);
+        graph_context.setFill(Color.LIGHTGREEN); //заменить на спрайт
         graph_context.fillRect(player.get_x(), player.get_y(), PlayerShip.width, PlayerShip.height);
+
+        //добавить отрисовку врагов
     }
 }

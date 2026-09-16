@@ -1,6 +1,8 @@
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+//Менеджер экранов. Объект этого класса ТОЛЬКО один. Переключает игру между экранами.
+
 public class ScreenManager {
     private final Scene scene;
     private Parent main_reference;
