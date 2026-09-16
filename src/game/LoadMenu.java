@@ -1,3 +1,5 @@
+package game;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -21,7 +23,7 @@ public class LoadMenu extends StackPane {
         getChildren().add(box);
         setAlignment(Pos.CENTER);
 
-        Image back_image = new Image(getClass().getResourceAsStream("main_menu/resources/main_menu_background.png"));
+        Image back_image = new Image(getClass().getResourceAsStream("/main_menu/resources/main_menu_background.png"));
         BackgroundImage back = new BackgroundImage(back_image,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
