@@ -10,6 +10,7 @@ public class ScreenManager {
     private Parent load_reference;
     private GameField game_reference;
     private PauseMenu pause_reference;
+    private DefeatScreen def_reference;
     // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ ССЫЛКУ ЗДЕСЬ
 
     public ScreenManager(Scene scene){
@@ -20,6 +21,7 @@ public class ScreenManager {
     public void set_load_reference(Parent new_ref){this.load_reference = new_ref; }
     public void set_game_reference(GameField new_ref){this.game_reference = new_ref; }
     public void set_pause_reference(PauseMenu new_ref){this.pause_reference = new_ref; }
+    public void set_def_reference(DefeatScreen new_ref){this.def_reference = new_ref; }
     // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ СЕТТЕР ЗДЕСЬ
 
     public void go_to_main(){this.scene.setRoot(main_reference); }
@@ -45,6 +47,16 @@ public class ScreenManager {
             game_reference.requestFocus();
             game_reference.unpause();
         }
+    }
+
+    public void show_def_screen(){
+        game_reference.set_paused(true);
+        game_reference.getChildren().add(def_reference);
+        def_reference.relocate(
+                Screen.getPrimary().getBounds().getWidth()*0.2,
+                Screen.getPrimary().getBounds().getHeight()*0.2
+        );
+        game_reference.pause();
     }
     // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ УСТАНОВЩИК ЗДЕСЬ
 }

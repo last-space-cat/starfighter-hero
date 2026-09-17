@@ -15,3 +15,10 @@
     -fx-border-color: #88e788;
     -fx-text-fill: #88e788;
 }
+
+.end-screen-header{
+    -fx-font-size: 60;
+    -fx-font-family: 'Courier New';
+    -fx-text-fill: #88e788;
+    -fx-font-weight: bold;
+}
