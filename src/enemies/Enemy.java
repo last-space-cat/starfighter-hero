@@ -24,8 +24,8 @@ public class Enemy {
 
     public double get_x() { return x; }
     public double get_y() { return y; }
-    public int get_width() { return type.get_width(); }
-    public int get_height() { return type.get_height(); }
+    public double get_width() { return type.get_width(); }
+    public double get_height() { return type.get_height(); }
     public Color get_color() { return type.get_color(); }
 
     public void update(double dt, PlayerShip player) {

@@ -22,6 +22,7 @@ public class GameField extends Pane {
     private final List<Enemy> enemy_spawn_queue = new ArrayList<>();
     private final BattleSystem battleManager = new BattleSystem();
     private GameTimer game_loop;
+    private final HUD game_interface;
     private boolean paused = false;
 
     public GameField(ScreenManager handling_manager, double width, double height){
@@ -36,7 +37,9 @@ public class GameField extends Pane {
         pause_button.relocate(1200, 20);
         getChildren().add(pause_button);
         pause_button.setOnAction(event -> handling_manager.toggle_pause());
-        //ВРЕМЕННО КНОПКА ПАУЗЫ ОТПРАВЛЯЕТ НА ГЛАВНОЕ МЕНЮ, ПОМЕНЯТЬ ПОСЛЕ СОЗДАНИЯ ФУНКЦИОНАЛА ПАУЗЫ
+
+        game_interface = new HUD(player);
+        getChildren().add(game_interface);
         
         setup_input();
         // ТЕСТ
@@ -83,6 +86,7 @@ public class GameField extends Pane {
             enemy_spawn_queue.clear(); // Очищаем буфер для следующих спавнов
         }
 
+        player.resolve_collisions(enemies, game_interface);
         render();
     }
 

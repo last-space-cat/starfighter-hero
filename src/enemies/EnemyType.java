@@ -12,8 +12,8 @@ public enum EnemyType {
     BONUS(130, 40, 40, Color.GOLD, 3);
 
     private final double velocity;
-    private final int width;
-    private final int height;
+    private final double width;
+    private final double height;
     private final Color color;
     private final int maxHP;
 
@@ -26,8 +26,8 @@ public enum EnemyType {
     }
 
     public double get_velocity() { return velocity; }
-    public int get_width() { return width; }
-    public int get_height() { return height; }
+    public double get_width() { return width; }
+    public double get_height() { return height; }
     public Color get_color() { return color; }
     public int get_maxHP() {return maxHP; }
 }
