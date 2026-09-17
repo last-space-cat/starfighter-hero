@@ -6,8 +6,8 @@ import javafx.scene.paint.Color;
 public class PlayerBullet {
     private double x, y;
     private final double velocity = 600;
-    public static final int width = 15;
-    public static final int height = 6;
+    public static final double width = 15;
+    public static final double height = 6;
 
     public PlayerBullet(double starting_x, double starting_y) {
         this.x = starting_x;
