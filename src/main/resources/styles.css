@@ -16,9 +16,27 @@
     -fx-text-fill: #88e788;
 }
 
+.end-screen-button{
+    -fx-font-size: 20;
+    -fx-font-family: 'Courier New';
+    -fx-background-color: #000000;
+    -fx-border-width: 3;
+    -fx-border-color: #ff2400;
+    -fx-text-fill: #ff2400;
+}
+
+.end-screen-button:hover{
+    -fx-font-size: 20;
+    -fx-font-family: 'Courier New';
+    -fx-background-color: #000000;
+    -fx-border-width: 3;
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+}
+
 .end-screen-header{
     -fx-font-size: 60;
     -fx-font-family: 'Courier New';
-    -fx-text-fill: #88e788;
+    -fx-text-fill: #ff2400;
     -fx-font-weight: bold;
 }

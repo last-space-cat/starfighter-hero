@@ -18,8 +18,8 @@ public class DefeatScreen extends StackPane{
                 Screen.getPrimary().getBounds().getWidth()*0.6,
                 Screen.getPrimary().getBounds().getHeight()*0.5
         );
-        defeat_background.setFill(Color.web("#88e78888"));
-        defeat_background.setStroke(Color.web("#88e788"));
+        defeat_background.setFill(Color.web("#ff240088"));
+        defeat_background.setStroke(Color.web("#ff2400"));
         defeat_background.setStrokeWidth(5);
         defeat_background.setStrokeType(StrokeType.INSIDE);
         getChildren().add(defeat_background);
@@ -47,7 +47,7 @@ public class DefeatScreen extends StackPane{
         new_button.setPrefSize(
                 Screen.getPrimary().getBounds().getWidth()*0.2,
                 Screen.getPrimary().getBounds().getHeight()*0.1);
-        new_button.getStyleClass().add("menu-button");
+        new_button.getStyleClass().add("end-screen-button");
         return new_button;
     }
 }
