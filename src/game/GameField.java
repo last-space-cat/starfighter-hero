@@ -16,6 +16,7 @@ import java.util.Set;
 public class GameField extends Pane {
     private final Canvas canvas;
     private final GraphicsContext graph_context;
+    private final ScreenManager screen_manager;
     private final PlayerShip player;
     private final Set<KeyCode> pressed_keys = EnumSet.noneOf(KeyCode.class);
     private final List<Enemy> enemies = new ArrayList<>();
@@ -26,6 +27,7 @@ public class GameField extends Pane {
     private boolean paused = false;
 
     public GameField(ScreenManager handling_manager, double width, double height){
+        screen_manager = handling_manager;
         canvas = new Canvas(width, height);
         graph_context = canvas.getGraphicsContext2D();
         player = new PlayerShip(40, 320);
@@ -36,7 +38,7 @@ public class GameField extends Pane {
         pause_button.getStyleClass().add("menu-button");
         pause_button.relocate(1200, 20);
         getChildren().add(pause_button);
-        pause_button.setOnAction(event -> handling_manager.toggle_pause());
+        pause_button.setOnAction(event -> screen_manager.toggle_pause());
 
         game_interface = new HUD(player);
         getChildren().add(game_interface);
@@ -87,6 +89,9 @@ public class GameField extends Pane {
         }
 
         player.resolve_collisions(enemies, game_interface);
+        if (player.get_current_HP() <= 0){
+            screen_manager.show_def_screen();
+        }
         render();
     }
 

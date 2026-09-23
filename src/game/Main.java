@@ -27,10 +27,12 @@ public class Main extends Application{
         GameField game_field;
         game_field = new GameField(manager, Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
         PauseMenu pause_menu = new PauseMenu(manager);
+        DefeatScreen defeat_menu = new DefeatScreen(manager);
         manager.set_main_reference(main_menu);
         manager.set_load_reference(load_menu);
         manager.set_game_reference(game_field);
         manager.set_pause_reference(pause_menu);
+        manager.set_def_reference(defeat_menu);
         //НЕ ЗАБЫВАТЬ ЗДЕСЬ ВЫЗЫВАТЬ СЕТТЕРЫ НА ВСЕ НУЖНЫЕ ЭКРАНЫ
         manager.go_to_main();
 
