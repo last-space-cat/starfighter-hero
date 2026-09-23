@@ -3,12 +3,12 @@ package game;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
 public class DefeatScreen extends StackPane{
@@ -24,10 +24,10 @@ public class DefeatScreen extends StackPane{
         defeat_background.setStrokeType(StrokeType.INSIDE);
         getChildren().add(defeat_background);
 
-        Label defeat_header = new Label("YOU LOST!");
+        Text defeat_header = new Text("YOU LOST!");
         defeat_header.getStyleClass().add("end-screen-header");
-        defeat_header.setAlignment(Pos.TOP_CENTER);
-        defeat_header.setPadding(new Insets(0, 0, Screen.getPrimary().getBounds().getWidth()*0.1, 0));
+        setAlignment(defeat_header, Pos.TOP_CENTER);
+        setMargin(defeat_header, new Insets(80, 0, 0, 0));
         getChildren().add(defeat_header);
 
         HBox box = new HBox(Screen.getPrimary().getBounds().getWidth()*0.1);
