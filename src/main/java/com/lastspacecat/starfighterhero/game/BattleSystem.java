@@ -1,6 +1,6 @@
-package game;
+package com.lastspacecat.starfighterhero.game;
 
-import enemies.Enemy;
+import com.lastspacecat.starfighterhero.enemies.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import java.util.ArrayList;

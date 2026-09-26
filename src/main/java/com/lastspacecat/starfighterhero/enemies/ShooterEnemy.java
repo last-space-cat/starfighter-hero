@@ -1,5 +1,7 @@
-package enemies;
-import game.*;
+package com.lastspacecat.starfighterhero.enemies;
+
+import com.lastspacecat.starfighterhero.game.*;
+
 public class ShooterEnemy extends Enemy {
     public ShooterEnemy(double starting_x, double starting_y, EnemyType type) {
         super(starting_x, starting_y, type);

@@ -1,7 +1,7 @@
-package enemies;
+package com.lastspacecat.starfighterhero.enemies;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import game.*;
+import com.lastspacecat.starfighterhero.game.*;
 
 public class ShieldEnemy extends Enemy {
     private int shield_hp;

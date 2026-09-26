@@ -1,5 +1,5 @@
-package enemies;
-import game.*;
+package com.lastspacecat.starfighterhero.enemies;
+import com.lastspacecat.starfighterhero.game.*;
 
 public class KamikazeEnemy extends Enemy {
     public KamikazeEnemy(double starting_x, double starting_y, EnemyType type) {
