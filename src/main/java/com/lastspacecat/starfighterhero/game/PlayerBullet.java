@@ -14,6 +14,10 @@ public class PlayerBullet {
         this.y = starting_y;
     }
 
+    public boolean is_out_of_bounds(double max_width) {
+        return x > max_width;
+    }
+
     public double get_x() { return x; }
     public double get_y() { return y; }
 

@@ -19,7 +19,7 @@ public class HUD extends BorderPane {
 
     HUD(PlayerShip player_ref){
         this.player = player_ref;
-        lives = new HBox(30);
+        lives = new HBox(1);
         life_views = new ArrayList<ImageView>();
 
         for (int i = 0; i < player.get_current_HP(); i++){
