@@ -11,14 +11,14 @@ public class BattleSystem {
     private final List<PlayerBullet> bullets = new ArrayList<>();
     private double fire_cooldown = 0;
 
-    public void update_bullets(double dt, PlayerShip player, Set<KeyCode> pressed_keys) {
+    public void update_bullets(double dt, PlayerShip player, Set<KeyCode> pressed_keys, double max_width) {
         if (fire_cooldown > 0) {
             fire_cooldown -= dt;
         }
 
         if (pressed_keys.contains(KeyCode.SPACE) && fire_cooldown <= 0) {
-            double bullet_x = player.get_x() + PlayerShip.width;
-            double bullet_y = player.get_y() + (PlayerShip.height / 2) - (PlayerBullet.height / 2);
+            double bullet_x = player.get_x() + PlayerShip.width * 0.9;
+            double bullet_y = player.get_y() + (PlayerShip.height * 0.77) - (PlayerBullet.height / 2);
             bullets.add(new PlayerBullet(bullet_x, bullet_y));
             fire_cooldown = 0.3;
         }
@@ -26,11 +26,16 @@ public class BattleSystem {
         for (int i = 0; i < bullets.size(); i++) {
             PlayerBullet bullet = bullets.get(i);
             bullet.update(dt);
-            if (bullet.is_out_of_bounds()) {
+
+            if (bullet.is_out_of_bounds(max_width)) {
                 bullets.remove(i);
                 i--;
             }
         }
+    }
+
+    public void clear_bullets(){
+        bullets.clear();
     }
 
     public void check_collisions(List<Enemy> enemies) {

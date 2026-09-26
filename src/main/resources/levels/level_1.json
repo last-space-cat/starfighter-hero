@@ -1,0 +1,22 @@
+{
+  "name": "Federation Space I",
+  "waves": [
+    {
+      "delay": 1.0,
+      "enemies": [
+        {"type": "BASE", "position":  0.2},
+        {"type": "BASE", "position":  0.4},
+        {"type": "BASE", "position":  0.6},
+        {"type": "BASE", "position":  0.8}
+      ]
+    },
+    {
+      "delay": 4.0,
+      "enemies": [
+        {"type": "SPEEDY", "position":  0.2},
+        {"type": "SPEEDY", "position":  0.5},
+        {"type": "SPEEDY", "position":  0.8}
+      ]
+    }
+  ]
+}
