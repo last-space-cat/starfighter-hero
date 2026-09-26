@@ -1,4 +1,4 @@
-package game;
+package com.lastspacecat.starfighterhero.game;
 
 import javafx.animation.AnimationTimer;
 

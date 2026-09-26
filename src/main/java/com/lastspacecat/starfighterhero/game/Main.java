@@ -1,4 +1,4 @@
-package game;
+package com.lastspacecat.starfighterhero.game;
 
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -36,7 +36,7 @@ public class Main extends Application{
         //НЕ ЗАБЫВАТЬ ЗДЕСЬ ВЫЗЫВАТЬ СЕТТЕРЫ НА ВСЕ НУЖНЫЕ ЭКРАНЫ
         manager.go_to_main();
 
-        String css = this.getClass().getResource("/main/resources/styles.css").toExternalForm();
+        String css = this.getClass().getResource("/styles.css").toExternalForm();
         main_scene.getStylesheets().add(css);
 
         primaryStage.setTitle("Starfighter Hero");

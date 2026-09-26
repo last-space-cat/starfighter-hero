@@ -1,4 +1,4 @@
-package enemies;
+package com.lastspacecat.starfighterhero.enemies;
 import javafx.scene.paint.Color;
 
 public enum EnemyType {
