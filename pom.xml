@@ -6,7 +6,7 @@
 
     <groupId>com.lastspacecat</groupId>
     <artifactId>starfighterhero</artifactId>
-    <version>0.1.6-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <name>Starfighter Hero</name>
 
     <properties>
@@ -21,6 +21,12 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.2</version>
         </dependency>
     </dependencies>
 

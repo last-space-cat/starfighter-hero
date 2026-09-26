@@ -10,6 +10,7 @@ public class GameTimer extends AnimationTimer {
         saved_time = 0;
         start();
     }
+
     @Override
     public void handle(long l){
         if (saved_time == 0){
