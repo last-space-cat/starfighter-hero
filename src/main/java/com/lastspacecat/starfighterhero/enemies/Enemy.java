@@ -1,5 +1,5 @@
-package enemies;
-import game.*;
+package com.lastspacecat.starfighterhero.enemies;
+import com.lastspacecat.starfighterhero.game.*;
 import javafx.scene.paint.Color;
 
 public class Enemy {

@@ -1,4 +1,4 @@
-package game;
+package com.lastspacecat.starfighterhero.game;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -26,7 +26,7 @@ public class MainMenu extends StackPane{
         getChildren().add(box);
         setAlignment(Pos.CENTER);
 
-        Image back_image = new Image(getClass().getResourceAsStream("/main_menu/resources/main_menu_background.png"));
+        Image back_image = new Image(getClass().getResourceAsStream("/main_menu_background.png"));
         BackgroundImage back = new BackgroundImage(back_image,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,

@@ -1,4 +1,4 @@
-package game;
+package com.lastspacecat.starfighterhero.game;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,7 +15,7 @@ public class HUD extends BorderPane {
     private final HBox lives;
     private final List<ImageView> life_views;
     private PlayerShip player;
-    private Image life_image = new Image(getClass().getResourceAsStream("/main/resources/life_symbol.png"));
+    private Image life_image = new Image(getClass().getResourceAsStream("/life_symbol.png"));
 
     HUD(PlayerShip player_ref){
         this.player = player_ref;
