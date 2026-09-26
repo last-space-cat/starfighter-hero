@@ -24,7 +24,12 @@ public class ScreenManager {
     public void set_def_reference(DefeatScreen new_ref){this.def_reference = new_ref; }
     // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ СЕТТЕР ЗДЕСЬ
 
-    public void go_to_main(){this.scene.setRoot(main_reference); }
+    public void go_to_main(){
+        this.scene.setRoot(main_reference);
+        if (!game_reference.is_paused()){
+            game_reference.pause();
+        }
+    }
     public void go_to_load(){this.scene.setRoot(load_reference); }
     public void go_to_game(){
         this.scene.setRoot(game_reference);

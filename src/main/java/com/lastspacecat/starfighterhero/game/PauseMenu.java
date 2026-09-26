@@ -26,7 +26,9 @@ public class PauseMenu extends StackPane {
         Button button_resume = init_pause_button("Resume");
         button_resume.setOnAction(event->handling_manager.toggle_pause());
         Button button_menu = init_pause_button("Main Menu");
-        button_menu.setOnAction(event->handling_manager.go_to_main());
+        button_menu.setOnAction(event->{
+            handling_manager.toggle_pause();
+            handling_manager.go_to_main();});
         box.getChildren().addAll(button_resume, button_menu);
         box.setAlignment(Pos.CENTER);
         getChildren().add(box);
