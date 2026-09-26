@@ -29,11 +29,11 @@ public class ScreenManager {
     public void go_to_game(){
         this.scene.setRoot(game_reference);
         game_reference.requestFocus();
+        game_reference.start_level("/levels/level_1.json");
     }
 
     public void toggle_pause(){
         if (!game_reference.is_paused()){
-            game_reference.set_paused(true);
             game_reference.getChildren().add(pause_reference);
             pause_reference.relocate(
                     Screen.getPrimary().getBounds().getWidth()*0.35,
@@ -42,7 +42,6 @@ public class ScreenManager {
             game_reference.pause();
         }
         else{
-            game_reference.set_paused(false);
             game_reference.getChildren().remove(pause_reference);
             game_reference.requestFocus();
             game_reference.unpause();
@@ -50,13 +49,16 @@ public class ScreenManager {
     }
 
     public void show_def_screen(){
-        game_reference.set_paused(true);
         game_reference.getChildren().add(def_reference);
         def_reference.relocate(
                 Screen.getPrimary().getBounds().getWidth()*0.2,
                 Screen.getPrimary().getBounds().getHeight()*0.2
         );
         game_reference.pause();
+    }
+
+    public void hide_def_screen(){
+        game_reference.getChildren().remove(def_reference);
     }
     // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ УСТАНОВЩИК ЗДЕСЬ
 }
