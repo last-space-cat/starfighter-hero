@@ -33,6 +33,10 @@ public class BattleSystem {
         }
     }
 
+    public void clear_bullets(){
+        bullets.clear();
+    }
+
     public void check_collisions(List<Enemy> enemies) {
         for (int b = 0; b < bullets.size(); b++) {
             PlayerBullet bullet = bullets.get(b);

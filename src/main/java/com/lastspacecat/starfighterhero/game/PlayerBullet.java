@@ -2,6 +2,7 @@ package com.lastspacecat.starfighterhero.game;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 
 public class PlayerBullet {
     private double x, y;
@@ -27,6 +28,6 @@ public class PlayerBullet {
     }
 
     public boolean is_out_of_bounds() {
-        return x > 1280;
+        return x > Screen.getPrimary().getBounds().getWidth();
     }
 }
