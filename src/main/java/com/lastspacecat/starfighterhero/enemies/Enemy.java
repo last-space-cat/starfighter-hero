@@ -26,7 +26,7 @@ public class Enemy {
     public double get_y() { return y; }
     public double get_width() { return type.get_width(); }
     public double get_height() { return type.get_height(); }
-    public Color get_color() { return type.get_color(); }
+    public javafx.scene.image.Image get_sprite() { return type.get_sprite();}
 
     public void update(double dt, PlayerShip player) {
         x -= type.get_velocity() * dt;

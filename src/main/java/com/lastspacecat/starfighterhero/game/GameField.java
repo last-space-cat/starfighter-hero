@@ -19,8 +19,11 @@ public class GameField extends Pane {
     private final ScreenManager screen_manager;
     private final PlayerShip player;
     private final Set<KeyCode> pressed_keys = EnumSet.noneOf(KeyCode.class);
+  
+    private final ScrollingBackground backgroundManager = new ScrollingBackground("/game_background_temp.png", 160);
     private final BattleSystem battleManager = new BattleSystem();
     private WaveSystem waveManager = new WaveSystem();
+  
     private GameTimer game_loop;
     private final HUD hud;
     private boolean paused = false;
@@ -84,9 +87,10 @@ public class GameField extends Pane {
     }
 
     public void update(double dt){
-        player.update(dt, pressed_keys);
-
-        battleManager.update_bullets(dt, player, pressed_keys);
+        player.update(dt, pressed_keys, canvas.getWidth(), canvas.getHeight());
+        battleManager.update_bullets(dt, player, pressed_keys, canvas.getWidth());
+        backgroundManager.update(dt, canvas.getWidth(), canvas.getHeight());
+      
         for (Enemy enemy : enemies) {
             enemy.update(dt, player);
         }
@@ -109,16 +113,13 @@ public class GameField extends Pane {
     }
 
     private void render(){
-        graph_context.setFill(Color.BLACK);
-        graph_context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        backgroundManager.render(graph_context, canvas.getWidth(), canvas.getHeight());
 
-        graph_context.setFill(Color.LIGHTGREEN);
-        graph_context.fillRect(player.get_x(), player.get_y(), PlayerShip.width, PlayerShip.height);
+        graph_context.drawImage(player.get_sprite(), player.get_x(), player.get_y(), PlayerShip.width, PlayerShip.height);
 
         battleManager.render_bullets(graph_context);
         for (Enemy enemy : enemies) {
-            graph_context.setFill(enemy.get_color());
-            graph_context.fillRect(enemy.get_x(), enemy.get_y(), enemy.get_width(), enemy.get_height());
+            graph_context.drawImage(enemy.get_sprite(), enemy.get_x(), enemy.get_y(), enemy.get_width(), enemy.get_height());
 
             if (enemy instanceof ShieldEnemy) {
                 ((ShieldEnemy) enemy).render_shield(graph_context);

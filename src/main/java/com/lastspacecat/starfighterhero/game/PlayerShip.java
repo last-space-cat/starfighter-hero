@@ -2,6 +2,7 @@ package com.lastspacecat.starfighterhero.game;
 
 import com.lastspacecat.starfighterhero.enemies.Enemy;
 import javafx.scene.input.KeyCode;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 
 import java.util.List;
@@ -14,11 +15,13 @@ public class PlayerShip {
     public static double height = Screen.getPrimary().getBounds().getWidth()*0.033;
     private int current_hp;
     private int max_hp;
+    private final Image sprite;
 
     PlayerShip(double starting_x, double starting_y){ //ПОЗЖЕ НУЖНО ДОБАВИТЬ В КОНСТРУКТОР Campaign_State для установки апгрейдов
         velocity = 500;
         max_hp = 3; //ПОЗЖЕ ЗДЕСЬ ИЗМЕНЕНИЯ С АПГРЕЙДАМИ
         init_player();
+        this.sprite = new Image(getClass().getResourceAsStream("/PLAYER_ship.png"));
     }
 
     public void init_player(){
@@ -31,7 +34,7 @@ public class PlayerShip {
 
     public double get_y(){return y;}
 
-    public void update(double dt, Set<KeyCode> pressed_keys){
+    public void update(double dt, Set<KeyCode> pressed_keys, double max_width, double max_height){
         double dx = 0, dy = 0;
 
         if (pressed_keys.contains(KeyCode.W) || pressed_keys.contains(KeyCode.UP))    dy -= dt;
@@ -54,6 +57,7 @@ public class PlayerShip {
     public int get_current_HP(){
         return this.current_hp;
     }
+    public Image get_sprite() { return this.sprite; }
 
     public void resolve_collisions(List<Enemy> enemies){
         for (Enemy enemy : enemies){
