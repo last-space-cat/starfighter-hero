@@ -2,13 +2,13 @@ package com.lastspacecat.starfighterhero.enemies;
 import javafx.scene.image.Image;
 
 public enum EnemyType {
-    BASE(150, 80, 80, "BASE_enemy.png", 1),
-    SHOOTER(100, 100, 100, "SHOOTER_enemy.png", 1),
-    SPEEDY(400, 80, 80, "SPEEDY_enemy.png", 1),
-    KAMIKAZE(200, 80, 80, "KAMIKAZE_enemy.png", 3),
-    ARMORED(60, 90, 90, "ARMORED_enemy.png", 10),
+    BASE(150, 90, 60, "BASE_enemy.png", 1),
+    SHOOTER(100, 120, 40, "SHOOTER_enemy.png", 1),
+    SPEEDY(400, 100, 50, "SPEEDY_enemy.png", 1),
+    KAMIKAZE(200, 100, 50, "KAMIKAZE_enemy.png", 3),
+    ARMORED(60, 100, 50, "ARMORED_enemy.png", 10),
     SHIELD(120, 80, 80, "SHIELD_enemy.png", 1),
-    MODULAR(110, 160, 160, "MODULAR_enemy.png", 3),
+    MODULAR(110, 160, 80, "MODULAR_enemy.png", 3),
     BONUS(130, 80, 80, "BONUS_enemy.png", 3);
 
     private final double velocity;
