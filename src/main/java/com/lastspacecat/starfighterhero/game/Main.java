@@ -1,7 +1,6 @@
 package com.lastspacecat.starfighterhero.game;
 
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -11,14 +10,15 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
 public class Main extends Application{
+    public static final double screen_width = Screen.getPrimary().getBounds().getWidth();
+    public static final double screen_height = Screen.getPrimary().getBounds().getHeight();
 
     @Override
     public void start (Stage primaryStage) throws IOException {
-        Rectangle2D screen_bounds = Screen.getPrimary().getBounds();
-        primaryStage.setX(screen_bounds.getMinX());
-        primaryStage.setY(screen_bounds.getMinY());
-        primaryStage.setWidth(screen_bounds.getWidth());
-        primaryStage.setHeight(screen_bounds.getHeight());
+        primaryStage.setX(screen_width);
+        primaryStage.setY(screen_height);
+        primaryStage.setWidth(Screen.getPrimary().getBounds().getWidth());
+        primaryStage.setHeight(Screen.getPrimary().getBounds().getHeight());
 
         Scene main_scene = new Scene(new StackPane());
         ScreenManager manager = new ScreenManager(main_scene);

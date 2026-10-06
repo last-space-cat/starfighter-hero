@@ -6,7 +6,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class GameField extends Pane {
     private final PlayerShip player;
     private final Set<KeyCode> pressed_keys = EnumSet.noneOf(KeyCode.class);
   
-    private final ScrollingBackground backgroundManager = new ScrollingBackground("/game_background_temp.png", 160);
+    private final ScrollingBackground backgroundManager = new ScrollingBackground("/game_background_temp.png", 40);
     private final BattleSystem battleManager = new BattleSystem();
     private WaveSystem waveManager = new WaveSystem();
   
