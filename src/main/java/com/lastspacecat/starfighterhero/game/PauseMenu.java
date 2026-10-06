@@ -7,14 +7,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-import javafx.stage.Screen;
 
 public class PauseMenu extends StackPane {
 
     PauseMenu(ScreenManager handling_manager){
         Rectangle pause_background = new Rectangle(
-                Screen.getPrimary().getBounds().getWidth()*0.3,
-                Screen.getPrimary().getBounds().getHeight()*0.5
+                Main.screen_width*0.3,
+                Main.screen_height*0.5
         );
         pause_background.setFill(Color.web("#88e78888"));
         pause_background.setStroke(Color.web("#88e788"));
@@ -37,8 +36,8 @@ public class PauseMenu extends StackPane {
     private Button init_pause_button(String text){
         Button new_button = new Button(text);
         new_button.setPrefSize(
-                Screen.getPrimary().getBounds().getWidth()*0.2,
-                Screen.getPrimary().getBounds().getHeight()*0.1);
+                Main.screen_width*0.2,
+                Main.screen_height*0.1);
         new_button.getStyleClass().add("menu-button");
         return new_button;
     }

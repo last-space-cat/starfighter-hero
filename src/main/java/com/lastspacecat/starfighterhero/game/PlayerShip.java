@@ -3,7 +3,6 @@ package com.lastspacecat.starfighterhero.game;
 import com.lastspacecat.starfighterhero.enemies.Enemy;
 import javafx.scene.input.KeyCode;
 import javafx.scene.image.Image;
-import javafx.stage.Screen;
 
 import java.util.List;
 import java.util.Set;
@@ -11,22 +10,22 @@ import java.util.Set;
 public class PlayerShip {
     private double x, y;
     private double velocity;
-    public static double width = Screen.getPrimary().getBounds().getWidth()*0.07;
-    public static double height = Screen.getPrimary().getBounds().getWidth()*0.033;
+    public static double width = Main.screen_width*0.1;
+    public static double height = Main.screen_width*0.033;
     private int current_hp;
     private int max_hp;
     private final Image sprite;
 
     PlayerShip(double starting_x, double starting_y){ //ПОЗЖЕ НУЖНО ДОБАВИТЬ В КОНСТРУКТОР Campaign_State для установки апгрейдов
-        velocity = 500;
+        velocity = Main.screen_width*0.25;
         max_hp = 3; //ПОЗЖЕ ЗДЕСЬ ИЗМЕНЕНИЯ С АПГРЕЙДАМИ
         init_player();
         this.sprite = new Image(getClass().getResourceAsStream("/PLAYER_ship.png"));
     }
 
     public void init_player(){
-        x = Screen.getPrimary().getBounds().getWidth()*0.1;
-        y = Screen.getPrimary().getBounds().getHeight()*0.5 - width*0.5;
+        x = Main.screen_width*0.1;
+        y = Main.screen_height*0.5 - width*0.5;
         current_hp = max_hp;
     }
 
@@ -50,8 +49,8 @@ public class PlayerShip {
         x += dx*velocity;
         y += dy*velocity;
 
-        x = Math.clamp(x, 0, Screen.getPrimary().getBounds().getWidth() - width);
-        y = Math.clamp(y, 0, Screen.getPrimary().getBounds().getHeight() - height);
+        x = Math.clamp(x, 0, Main.screen_width - width);
+        y = Math.clamp(y, 0, Main.screen_height - height);
     }
 
     public int get_current_HP(){

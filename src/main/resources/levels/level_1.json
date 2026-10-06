@@ -39,6 +39,13 @@
         {"type": "ARMORED", "position":  0.3},
         {"type": "ARMORED", "position":  0.6}
       ]
+    },
+    {
+      "delay": 4.0,
+      "enemies": [
+        {"type": "SHIELD", "position":  0.2},
+        {"type": "BONUS", "position":  0.8}
+      ]
     }
     ]
 }

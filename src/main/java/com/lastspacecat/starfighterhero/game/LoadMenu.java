@@ -35,7 +35,9 @@ public class LoadMenu extends StackPane {
 
     private Button init_menu_button(String text){
         Button new_button = new Button(text);
-        new_button.setPrefSize(200, 50);
+        new_button.setPrefSize(
+                Main.screen_width*0.2,
+                Main.screen_height*0.1);
         new_button.getStyleClass().add("menu-button");
         return new_button;
     } // ВРЕМЕННЫЙ МЕТОД, ПОЗЖЕ НАДО ДОБАВИТЬ ФУНКЦИОНАЛ ЗАГРУЗКИ СЕЙВОВ ИЗ ФАЙЛА

@@ -1,10 +1,6 @@
 package com.lastspacecat.starfighterhero.game;
 
-import com.lastspacecat.starfighterhero.enemies.Enemy;
-import com.lastspacecat.starfighterhero.enemies.EnemyType;
-import com.lastspacecat.starfighterhero.enemies.ModularEnemy;
-import javafx.stage.Screen;
-
+import com.lastspacecat.starfighterhero.enemies.*;
 import java.util.List;
 
 public class WaveSystem {
@@ -29,23 +25,48 @@ public class WaveSystem {
             if (time_in_wave < wave.delay()) break;
 
             for (LevelData.EnemyData e : wave.enemies()){
-                if (e.type() != EnemyType.MODULAR) {
+                if (e.type() != EnemyType.SHOOTER && e.type() != EnemyType.MODULAR && e.type() != EnemyType.KAMIKAZE && e.type() != EnemyType.SHIELD) {
                     Enemy enemy = new Enemy(
-                            Screen.getPrimary().getBounds().getWidth() * 0.95,
-                            Screen.getPrimary().getBounds().getHeight() * e.position(),
+                            Main.screen_width* 0.95,
+                            Main.screen_height* e.position(),
                             e.type());
                     push_queue.add(enemy);
                 }
-                else{
-                    Enemy enemy = new ModularEnemy(
-                            Screen.getPrimary().getBounds().getWidth() * 0.95,
-                            Screen.getPrimary().getBounds().getHeight() * e.position(),
-                            e.type(),
-                            push_queue
-                            );
-                    push_queue.add(enemy);
+                else {
+                    if (e.type() == EnemyType.MODULAR) {
+                        Enemy enemy = new ModularEnemy(
+                                Main.screen_width * 0.95,
+                                Main.screen_height * e.position(),
+                                e.type(),
+                                push_queue
+                        );
+                        push_queue.add(enemy);
+                    }
+                    if (e.type() == EnemyType.SHIELD) {
+                        Enemy enemy = new ShieldEnemy(
+                                Main.screen_width * 0.95,
+                                Main.screen_height * e.position(),
+                                e.type()
+                        );
+                        push_queue.add(enemy);
+                    }
+                    if (e.type() == EnemyType.SHOOTER) {
+                        Enemy enemy = new ShooterEnemy(
+                                Main.screen_width * 0.95,
+                                Main.screen_height * e.position(),
+                                e.type()
+                        );
+                        push_queue.add(enemy);
+                    }
+                    if (e.type() == EnemyType.KAMIKAZE) {
+                        Enemy enemy = new KamikazeEnemy(
+                                Main.screen_width * 0.95,
+                                Main.screen_height * e.position(),
+                                e.type()
+                        );
+                        push_queue.add(enemy);
+                    }
                 }
-
             }
 
             time_in_wave -= wave.delay();
