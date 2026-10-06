@@ -15,8 +15,8 @@ public class DefeatScreen extends StackPane{
 
     public DefeatScreen(ScreenManager handling_manager) {
         Rectangle defeat_background = new Rectangle(
-                Screen.getPrimary().getBounds().getWidth()*0.6,
-                Screen.getPrimary().getBounds().getHeight()*0.5
+                Main.screen_width*0.6,
+                Main.screen_height*0.5
         );
         defeat_background.setFill(Color.web("#ff240088"));
         defeat_background.setStroke(Color.web("#ff2400"));
@@ -27,7 +27,7 @@ public class DefeatScreen extends StackPane{
         Text defeat_header = new Text("YOU LOST!");
         defeat_header.getStyleClass().add("end-screen-header");
         setAlignment(defeat_header, Pos.TOP_CENTER);
-        setMargin(defeat_header, new Insets(80, 0, 0, 0));
+        setMargin(defeat_header, new Insets(Main.screen_height*0.1, 0, 0, 0));
         getChildren().add(defeat_header);
 
         HBox box = new HBox(Screen.getPrimary().getBounds().getWidth()*0.1);
@@ -35,7 +35,7 @@ public class DefeatScreen extends StackPane{
         Button button_menu = init_def_button("Main Menu");
         box.getChildren().addAll(button_retry, button_menu);
         box.setAlignment(Pos.BOTTOM_CENTER);
-        box.setPadding(new Insets(0, 0, 30, 0));
+        box.setPadding(new Insets(0, 0, Main.screen_height*0.04, 0));
         getChildren().add(box);
 
         button_retry.setOnAction(event->{handling_manager.go_to_game(); handling_manager.hide_def_screen();});
@@ -45,8 +45,8 @@ public class DefeatScreen extends StackPane{
     private Button init_def_button(String text){
         Button new_button = new Button(text);
         new_button.setPrefSize(
-                Screen.getPrimary().getBounds().getWidth()*0.2,
-                Screen.getPrimary().getBounds().getHeight()*0.1);
+                Main.screen_width*0.2,
+                Main.screen_height*0.1);
         new_button.getStyleClass().add("end-screen-button");
         return new_button;
     }

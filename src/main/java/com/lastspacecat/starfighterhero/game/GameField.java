@@ -35,13 +35,13 @@ public class GameField extends Pane {
         screen_manager = handling_manager;
         canvas = new Canvas(width, height);
         graph_context = canvas.getGraphicsContext2D();
-        player = new PlayerShip(40, 320);
+        player = new PlayerShip(Main.screen_width*0.05, Main.screen_height*0.5);
         getChildren().add(canvas);
 
         Button pause_button = new Button("||");
-        pause_button.setPrefSize(50, 50);
+        pause_button.setPrefSize(Main.screen_height*0.07, Main.screen_height*0.07);
         pause_button.getStyleClass().add("menu-button");
-        pause_button.relocate(1200, 20);
+        pause_button.relocate(Main.screen_width-Main.screen_height*0.07-20, 20);
         getChildren().add(pause_button);
         pause_button.setOnAction(event -> screen_manager.toggle_pause());
 

@@ -29,7 +29,7 @@ public class ShieldEnemy extends Enemy {
             graph_context.setStroke(Color.rgb(0, 191, 255, 0.7));
             graph_context.setLineWidth(3);
 
-            double padding = 20;
+            double padding = Main.screen_height*0.02;
             double shield_x = x - padding;
             double shield_y = y - padding;
             double shield_w = get_width() + (padding * 2);

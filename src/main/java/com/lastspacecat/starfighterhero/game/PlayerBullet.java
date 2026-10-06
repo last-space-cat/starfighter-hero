@@ -6,9 +6,9 @@ import javafx.stage.Screen;
 
 public class PlayerBullet {
     private double x, y;
-    private final double velocity = 600;
-    public static final double width = 15;
-    public static final double height = 6;
+    private final double velocity = Main.screen_width*0.33;
+    public static final double width = Main.screen_height*0.014;
+    public static final double height = Main.screen_height*0.006;
 
     public PlayerBullet(double starting_x, double starting_y) {
         this.x = starting_x;

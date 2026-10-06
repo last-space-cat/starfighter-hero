@@ -15,17 +15,17 @@ public class Main extends Application{
 
     @Override
     public void start (Stage primaryStage) throws IOException {
-        primaryStage.setX(screen_width);
-        primaryStage.setY(screen_height);
-        primaryStage.setWidth(Screen.getPrimary().getBounds().getWidth());
-        primaryStage.setHeight(Screen.getPrimary().getBounds().getHeight());
+        primaryStage.setX(Screen.getPrimary().getBounds().getMinX());
+        primaryStage.setY(Screen.getPrimary().getBounds().getMinY());
+        primaryStage.setWidth(screen_width);
+        primaryStage.setHeight(screen_height);
 
         Scene main_scene = new Scene(new StackPane());
         ScreenManager manager = new ScreenManager(main_scene);
         MainMenu main_menu = new MainMenu(manager);
         LoadMenu load_menu = new LoadMenu(manager);
         GameField game_field;
-        game_field = new GameField(manager, Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
+        game_field = new GameField(manager, screen_width, screen_height);
         PauseMenu pause_menu = new PauseMenu(manager);
         DefeatScreen defeat_menu = new DefeatScreen(manager);
         manager.set_main_reference(main_menu);
@@ -40,9 +40,9 @@ public class Main extends Application{
         main_scene.getStylesheets().add(css);
 
         primaryStage.setTitle("Starfighter Hero");
-        primaryStage.setScene(main_scene);
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        primaryStage.setScene(main_scene);
         primaryStage.show();
     }
 
