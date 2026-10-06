@@ -17,6 +17,38 @@
         {"type": "SPEEDY", "position":  0.5},
         {"type": "SPEEDY", "position":  0.8}
       ]
+    },
+    {
+      "delay": 2.0,
+      "enemies": [
+        {"type": "SHOOTER", "position":  0.2},
+        {"type": "SHOOTER", "position":  0.5},
+        {"type": "SHOOTER", "position":  0.8}
+      ]
+    },
+    {
+      "delay": 4.0,
+      "enemies": [
+        {"type": "ARMORED", "position":  0.2},
+        {"type": "ARMORED", "position":  0.5},
+        {"type": "ARMORED", "position":  0.8}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "KAMIKAZE", "position":  0.2},
+        {"type": "KAMIKAZE", "position":  0.5},
+        {"type": "KAMIKAZE", "position":  0.8}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "MODULAR", "position":  0.2},
+        {"type": "MODULAR", "position":  0.5},
+        {"type": "MODULAR", "position":  0.8}
+      ]
     }
   ]
 }

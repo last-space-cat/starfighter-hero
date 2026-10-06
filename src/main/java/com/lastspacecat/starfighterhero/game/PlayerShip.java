@@ -11,7 +11,7 @@ import java.util.Set;
 public class PlayerShip {
     private double x, y;
     private double velocity;
-    public static double width = Screen.getPrimary().getBounds().getWidth()*0.1;
+    public static double width = Screen.getPrimary().getBounds().getWidth()*0.07;
     public static double height = Screen.getPrimary().getBounds().getWidth()*0.033;
     private int current_hp;
     private int max_hp;
