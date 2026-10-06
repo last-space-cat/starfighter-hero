@@ -11,12 +11,34 @@
       ]
     },
     {
-      "delay": 4.0,
+      "delay": 3.0,
       "enemies": [
         {"type": "SPEEDY", "position":  0.2},
         {"type": "SPEEDY", "position":  0.5},
         {"type": "SPEEDY", "position":  0.8}
       ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "SHOOTER", "position":  0.2},
+        {"type": "BASE", "position":  0.5},
+        {"type": "SHOOTER", "position":  0.8}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "MODULAR", "position":  0.3},
+        {"type": "MODULAR", "position":  0.6}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "ARMORED", "position":  0.3},
+        {"type": "ARMORED", "position":  0.6}
+      ]
     }
-  ]
+    ]
 }

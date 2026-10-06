@@ -1,6 +1,8 @@
 package com.lastspacecat.starfighterhero.game;
 
 import com.lastspacecat.starfighterhero.enemies.Enemy;
+import com.lastspacecat.starfighterhero.enemies.EnemyType;
+import com.lastspacecat.starfighterhero.enemies.ModularEnemy;
 import javafx.stage.Screen;
 
 import java.util.List;
@@ -27,11 +29,23 @@ public class WaveSystem {
             if (time_in_wave < wave.delay()) break;
 
             for (LevelData.EnemyData e : wave.enemies()){
-                Enemy enemy = new Enemy(
-                        Screen.getPrimary().getBounds().getWidth()*0.95,
-                        Screen.getPrimary().getBounds().getHeight()*e.position(),
-                        e.type());
-                push_queue.add(enemy);
+                if (e.type() != EnemyType.MODULAR) {
+                    Enemy enemy = new Enemy(
+                            Screen.getPrimary().getBounds().getWidth() * 0.95,
+                            Screen.getPrimary().getBounds().getHeight() * e.position(),
+                            e.type());
+                    push_queue.add(enemy);
+                }
+                else{
+                    Enemy enemy = new ModularEnemy(
+                            Screen.getPrimary().getBounds().getWidth() * 0.95,
+                            Screen.getPrimary().getBounds().getHeight() * e.position(),
+                            e.type(),
+                            push_queue
+                            );
+                    push_queue.add(enemy);
+                }
+
             }
 
             time_in_wave -= wave.delay();
