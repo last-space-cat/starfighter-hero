@@ -66,6 +66,10 @@ public class PlayerShip {
                     enemy.takeDamage(100); //ЗДЕСЬ ПРОСТО НАНОСИМ БОЛЬШЕ УРОНА, ЧЕМ МАКСИМУМ ХП
                 }
             }
+            if (enemy.get_x() <= 0){
+                current_hp -= 1;
+                enemy.takeDamage(100); //ЗДЕСЬ ПРОСТО НАНОСИМ БОЛЬШЕ УРОНА, ЧЕМ МАКСИМУМ ХП
+            }
         }
     }
 }
