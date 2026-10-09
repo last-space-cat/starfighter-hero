@@ -4,12 +4,12 @@ import javafx.scene.image.Image;
 
 public enum EnemyType {
     BASE(Main.screen_width*0.08, Main.screen_width*0.05, Main.screen_width*0.05, "BASE_enemy.png", 1),
-    SHOOTER(Main.screen_width*0.05, Main.screen_width*0.05, Main.screen_width*0.05, "SHOOTER_enemy.png", 1),
-    SPEEDY(Main.screen_width*0.16, Main.screen_width*0.05, Main.screen_width*0.05, "SPEEDY_enemy.png", 1),
+    SHOOTER(Main.screen_width*0.05, Main.screen_width*0.05, Main.screen_width*0.025, "SHOOTER_enemy.png", 1),
+    SPEEDY(Main.screen_width*0.16, Main.screen_width*0.05, Main.screen_width*0.03, "SPEEDY_enemy.png", 1),
     KAMIKAZE(Main.screen_width*0.10, Main.screen_width*0.05, Main.screen_width*0.05, "KAMIKAZE_enemy.png", 3),
-    ARMORED(Main.screen_width*0.08, Main.screen_width*0.12, Main.screen_width*0.12, "ARMORED_enemy.png", 10),
+    ARMORED(Main.screen_width*0.08, Main.screen_width*0.09, Main.screen_width*0.06, "ARMORED_enemy.png", 10),
     SHIELD(Main.screen_width*0.08, Main.screen_width*0.08, Main.screen_width*0.08, "SHIELD_enemy.png", 1),
-    MODULAR(Main.screen_width*0.08, Main.screen_width*0.12, Main.screen_width*0.12, "MODULAR_enemy.png", 3),
+    MODULAR(Main.screen_width*0.08, Main.screen_width*0.10, Main.screen_width*0.07, "MODULAR_enemy.png", 3),
     BONUS(Main.screen_width*0.10, Main.screen_width*0.08, Main.screen_width*0.08, "BONUS_enemy.png", 3);
 
     private final double velocity;

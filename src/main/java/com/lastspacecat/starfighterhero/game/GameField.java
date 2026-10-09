@@ -109,6 +109,13 @@ public class GameField extends Pane {
         }
 
         render();
+
+        if (waveManager.isFinished()){
+            if (enemies.isEmpty()){
+                //Позже здесь добавить запись в Campaign_State
+                screen_manager.show_win_screen();
+            }
+        }
     }
 
     private void render(){
