@@ -38,7 +38,7 @@ public class DefeatScreen extends StackPane{
         box.setPadding(new Insets(0, 0, Main.screen_height*0.04, 0));
         getChildren().add(box);
 
-        button_retry.setOnAction(event->{handling_manager.go_to_game(); handling_manager.hide_def_screen();});
+        button_retry.setOnAction(event->{handling_manager.go_to_game(1); handling_manager.hide_def_screen();});
         button_menu.setOnAction(event->{handling_manager.go_to_main(); handling_manager.hide_def_screen();});
     }
 

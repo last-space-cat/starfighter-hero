@@ -17,6 +17,10 @@ public class WaveSystem {
         time_in_wave = 0.0;
     }
 
+    public boolean isFinished(){
+        return current_wave >= level.waves().size();
+    }
+
     public void update (double dt, List<Enemy> push_queue){
         time_in_wave += dt;
 

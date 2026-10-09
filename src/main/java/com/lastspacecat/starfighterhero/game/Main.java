@@ -28,11 +28,13 @@ public class Main extends Application{
         game_field = new GameField(manager, screen_width, screen_height);
         PauseMenu pause_menu = new PauseMenu(manager);
         DefeatScreen defeat_menu = new DefeatScreen(manager);
+        VictoryScreen victory_menu = new VictoryScreen(manager);
         manager.set_main_reference(main_menu);
         manager.set_load_reference(load_menu);
         manager.set_game_reference(game_field);
         manager.set_pause_reference(pause_menu);
         manager.set_def_reference(defeat_menu);
+        manager.set_win_reference(victory_menu);
         //НЕ ЗАБЫВАТЬ ЗДЕСЬ ВЫЗЫВАТЬ СЕТТЕРЫ НА ВСЕ НУЖНЫЕ ЭКРАНЫ
         manager.go_to_main();
 
@@ -50,3 +52,4 @@ public class Main extends Application{
         Application.launch(args);
     }
 }
+

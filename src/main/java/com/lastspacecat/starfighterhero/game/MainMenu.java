@@ -14,7 +14,7 @@ public class MainMenu extends StackPane{
         Button button_quit = init_menu_button("Quit");
 
         //ДОБАВИТЬ ЛОГИКУ НА 3 КНОПКУ
-        button_play.setOnAction(event-> handling_manager.go_to_game());
+        button_play.setOnAction(event-> handling_manager.go_to_game(1));
         button_load.setOnAction(event-> handling_manager.go_to_load());
         button_quit.setOnAction(event-> Platform.exit());
 

@@ -14,7 +14,6 @@
       "delay": 3.0,
       "enemies": [
         {"type": "SPEEDY", "position":  0.2},
-        {"type": "SPEEDY", "position":  0.5},
         {"type": "SPEEDY", "position":  0.8}
       ]
     },
@@ -43,8 +42,7 @@
     {
       "delay": 4.0,
       "enemies": [
-        {"type": "SHIELD", "position":  0.2},
-        {"type": "BONUS", "position":  0.8}
+        {"type": "SHIELD", "position":  0.5}
       ]
     }
     ]
