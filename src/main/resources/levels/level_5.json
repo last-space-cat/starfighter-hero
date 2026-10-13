@@ -1,0 +1,72 @@
+{
+  "name": "Federation Space V",
+  "waves": [
+    {
+      "delay": 1.0,
+      "enemies": [
+        {"type": "BASE", "position":  0.5}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "MODULAR", "position":  0.1},
+        {"type": "MODULAR", "position":  0.5},
+        {"type": "MODULAR", "position":  0.7},
+        {"type": "MODULAR", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "MODULAR", "position":  0.1},
+        {"type": "SHIELD", "position":  0.5},
+        {"type": "SHIELD", "position":  0.7},
+        {"type": "MODULAR", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "KAMIKAZE", "position":  0.1},
+        {"type": "KAMIKAZE", "position":  0.3},
+        {"type": "KAMIKAZE", "position":  0.5},
+        {"type": "KAMIKAZE", "position":  0.7},
+        {"type": "KAMIKAZE", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "KAMIKAZE", "position":  0.1},
+        {"type": "KAMIKAZE", "position":  0.3},
+        {"type": "KAMIKAZE", "position":  0.5},
+        {"type": "KAMIKAZE", "position":  0.7},
+        {"type": "KAMIKAZE", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "BONUS", "position":  0.5}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "MODULAR", "position":  0.1},
+        {"type": "ARMORED", "position":  0.5},
+        {"type": "ARMORED", "position":  0.7},
+        {"type": "MODULAR", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "ARMORED", "position":  0.3},
+        {"type": "ARMORED", "position":  0.5},
+        {"type": "ARMORED", "position":  0.7}
+      ]
+    }
+  ]
+}

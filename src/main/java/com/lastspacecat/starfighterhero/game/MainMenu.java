@@ -7,14 +7,17 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 public class MainMenu extends StackPane{
-    public MainMenu(ScreenManager handling_manager) {
+    private final CampaignState current_state;
+
+    public MainMenu(ScreenManager handling_manager, CampaignState state) {
+        current_state = state;
         Button button_play = init_menu_button("New Game");
         Button button_load = init_menu_button("Load Game");
         Button button_settings = init_menu_button("Settings");
         Button button_quit = init_menu_button("Quit");
 
         //ДОБАВИТЬ ЛОГИКУ НА 3 КНОПКУ
-        button_play.setOnAction(event-> handling_manager.go_to_game(1));
+        button_play.setOnAction(event-> handling_manager.go_to_game(current_state.getCurrent_level()));
         button_load.setOnAction(event-> handling_manager.go_to_load());
         button_quit.setOnAction(event-> Platform.exit());
 

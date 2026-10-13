@@ -21,20 +21,23 @@ public class Main extends Application{
         primaryStage.setHeight(screen_height);
 
         Scene main_scene = new Scene(new StackPane());
+        CampaignState state = new CampaignState();
         ScreenManager manager = new ScreenManager(main_scene);
-        MainMenu main_menu = new MainMenu(manager);
+        MainMenu main_menu = new MainMenu(manager, state);
         LoadMenu load_menu = new LoadMenu(manager);
         GameField game_field;
-        game_field = new GameField(manager, screen_width, screen_height);
+        game_field = new GameField(manager, screen_width, screen_height, state);
         PauseMenu pause_menu = new PauseMenu(manager);
-        DefeatScreen defeat_menu = new DefeatScreen(manager);
+        DefeatScreen defeat_menu = new DefeatScreen(manager, state);
         VictoryScreen victory_menu = new VictoryScreen(manager);
+        UpgradeMenu upgrade_menu = new UpgradeMenu(manager, state);
         manager.set_main_reference(main_menu);
         manager.set_load_reference(load_menu);
         manager.set_game_reference(game_field);
         manager.set_pause_reference(pause_menu);
         manager.set_def_reference(defeat_menu);
         manager.set_win_reference(victory_menu);
+        manager.set_upgrade_reference(upgrade_menu);
         //НЕ ЗАБЫВАТЬ ЗДЕСЬ ВЫЗЫВАТЬ СЕТТЕРЫ НА ВСЕ НУЖНЫЕ ЭКРАНЫ
         manager.go_to_main();
 
