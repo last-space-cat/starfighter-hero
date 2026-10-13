@@ -13,25 +13,24 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class GameField extends Pane {
+    private final CampaignState current_state;
     private final Canvas canvas;
     private final GraphicsContext graph_context;
     private final ScreenManager screen_manager;
     private final PlayerShip player;
     private final Set<KeyCode> pressed_keys = EnumSet.noneOf(KeyCode.class);
-  
     private final ScrollingBackground backgroundManager = new ScrollingBackground("/game_background_temp.png", 40);
     private final BattleSystem battleManager = new BattleSystem();
     private WaveSystem waveManager = new WaveSystem();
-  
     private GameTimer game_loop;
     private final HUD hud;
     private boolean paused = false;
-
     private LevelData level;
     private final List<Enemy> enemies = new ArrayList<>();
     private final List<Enemy> enemy_spawn_queue = new ArrayList<>();
 
-    public GameField(ScreenManager handling_manager, double width, double height){
+    public GameField(ScreenManager handling_manager, double width, double height, CampaignState state){
+        current_state = state;
         screen_manager = handling_manager;
         canvas = new Canvas(width, height);
         graph_context = canvas.getGraphicsContext2D();
@@ -112,7 +111,7 @@ public class GameField extends Pane {
 
         if (waveManager.isFinished()){
             if (enemies.isEmpty()){
-                //Позже здесь добавить запись в Campaign_State
+                current_state.setCurrent_level(current_state.getCurrent_level()+1);
                 screen_manager.show_win_screen();
             }
         }

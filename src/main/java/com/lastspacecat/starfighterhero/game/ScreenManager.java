@@ -12,6 +12,7 @@ public class ScreenManager {
     private PauseMenu pause_reference;
     private DefeatScreen def_reference;
     private VictoryScreen win_reference;
+    private UpgradeMenu up_reference;
     // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ ССЫЛКУ ЗДЕСЬ
 
     public ScreenManager(Scene scene){
@@ -24,6 +25,7 @@ public class ScreenManager {
     public void set_pause_reference(PauseMenu new_ref){this.pause_reference = new_ref; }
     public void set_def_reference(DefeatScreen new_ref){this.def_reference = new_ref; }
     public void set_win_reference(VictoryScreen new_ref){this.win_reference = new_ref; }
+    public void set_upgrade_reference(UpgradeMenu new_ref){this.up_reference = new_ref; }
     // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ СЕТТЕР ЗДЕСЬ
 
     public void go_to_main(){
@@ -33,11 +35,14 @@ public class ScreenManager {
         }
     }
     public void go_to_load(){this.scene.setRoot(load_reference); }
+
     public void go_to_game(int level){
         this.scene.setRoot(game_reference);
         game_reference.requestFocus();
         game_reference.start_level("/levels/level_" + level + ".json");
     }
+
+    public void go_to_upgrades(){this.scene.setRoot(up_reference);}
 
     public void toggle_pause(){
         if (!game_reference.is_paused()){

@@ -1,0 +1,58 @@
+{
+  "name": "Federation Space IV",
+  "waves": [
+    {
+      "delay": 1.0,
+      "enemies": [
+        {"type": "ARMORED", "position":  0.5}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "SHOOTER", "position":  0.1},
+        {"type": "ARMORED", "position":  0.5},
+        {"type": "SHOOTER", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "SHOOTER", "position":  0.1},
+        {"type": "SHOOTER", "position":  0.2},
+        {"type": "ARMORED", "position":  0.5},
+        {"type": "SHOOTER", "position":  0.8},
+        {"type": "SHOOTER", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "SHOOTER", "position":  0.1},
+        {"type": "SHOOTER", "position":  0.2},
+        {"type": "SHOOTER", "position":  0.8},
+        {"type": "SHOOTER", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "SHOOTER", "position":  0.1},
+        {"type": "SHOOTER", "position":  0.2},
+        {"type": "ARMORED", "position":  0.5},
+        {"type": "SHOOTER", "position":  0.8},
+        {"type": "SHOOTER", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "SHOOTER", "position":  0.1},
+        {"type": "SHOOTER", "position":  0.2},
+        {"type": "BONUS", "position":  0.5},
+        {"type": "SHOOTER", "position":  0.8},
+        {"type": "SHOOTER", "position":  0.9}
+      ]
+    }
+  ]
+}

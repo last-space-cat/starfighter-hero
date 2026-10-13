@@ -12,8 +12,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
 public class DefeatScreen extends StackPane{
+    private final CampaignState current_state;
 
-    public DefeatScreen(ScreenManager handling_manager) {
+    public DefeatScreen(ScreenManager handling_manager, CampaignState state) {
+        current_state = state;
         Rectangle defeat_background = new Rectangle(
                 Main.screen_width*0.6,
                 Main.screen_height*0.5
@@ -38,7 +40,9 @@ public class DefeatScreen extends StackPane{
         box.setPadding(new Insets(0, 0, Main.screen_height*0.04, 0));
         getChildren().add(box);
 
-        button_retry.setOnAction(event->{handling_manager.go_to_game(1); handling_manager.hide_def_screen();});
+        button_retry.setOnAction(event-> {
+            handling_manager.go_to_game(current_state.getCurrent_level());
+            handling_manager.hide_def_screen();});
         button_menu.setOnAction(event->{handling_manager.go_to_main(); handling_manager.hide_def_screen();});
     }
 

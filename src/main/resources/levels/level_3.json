@@ -1,0 +1,50 @@
+{
+  "name": "Federation Space III",
+  "waves": [
+    {
+      "delay": 1.0,
+      "enemies": [
+        {"type": "BONUS", "position":  0.5}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "SPEEDY", "position":  0.1},
+        {"type": "SHIELD", "position":  0.4},
+        {"type": "SHIELD", "position":  0.6},
+        {"type": "SPEEDY", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 4.0,
+      "enemies": [
+        {"type": "SPEEDY", "position":  0.1},
+        {"type": "SHIELD", "position":  0.5},
+        {"type": "SPEEDY", "position":  0.7}
+      ]
+    },
+    {
+      "delay": 4.0,
+      "enemies": [
+        {"type": "KAMIKAZE", "position":  0.1},
+        {"type": "KAMIKAZE", "position":  0.3},
+        {"type": "KAMIKAZE", "position":  0.5},
+        {"type": "KAMIKAZE", "position":  0.7},
+        {"type": "KAMIKAZE", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "BONUS", "position":  0.5}
+      ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "BONUS", "position":  0.5}
+      ]
+    }
+  ]
+}
