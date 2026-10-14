@@ -1,0 +1,88 @@
+{
+  "trees": [
+    {
+      "name": "Attack",
+      "upgrades": [
+        {
+          "name": "Rapid-Fire Cannons",
+          "desc": "Install an improved reload mechanism that drastically accelerates the firing rate of the primary weapon. Just fire at your problems instead of thinking too much. +50% attack rate."
+        },
+        {
+          "name": "Large Caliber",
+          "desc": "Switch your old weapon to a 150-mm heavy cannon provided by the Federation Ordnance Department. It might not be much more powerful, but precision becomes much less of an issue. +300% bullet size."
+        },
+        {
+          "name": "High-Density Tips",
+          "desc": "Outfit your shells with a tip of depleted uranium, allowing it to go through enemy armor. Federation Command recommends to remove the radiation detector from your cabin to avoid annoying sounds. Bullets pierce one enemy and strike the next."
+        },
+        {
+          "name": "Unobtanium Payload",
+          "desc": "Procure new shells filled with military-grade exotic matter. You don't understand the physics behind it, but your enemies die much faster. +100% attack damage."
+        }
+      ]
+    },
+    {
+      "name": "Defence",
+      "upgrades": [
+        {
+          "name": "Composite Armor",
+          "desc": ""
+        },
+        {
+          "name": "Cyclic Capacitors",
+          "desc": ""
+        },
+        {
+          "name": "Survival Systems",
+          "desc": ""
+        },
+        {
+          "name": "Advanced Generator",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "name": "Attack Boosters",
+      "upgrades": [
+        {
+          "name": "Efficient Coolant",
+          "desc": ""
+        },
+        {
+          "name": "Repurposed ICBM",
+          "desc": ""
+        },
+        {
+          "name": "Use More Gun",
+          "desc": ""
+        },
+        {
+          "name": "Thermonuclear Warhead",
+          "desc": ""
+        }
+      ]
+    },
+    {
+      "name": "Defence Boosters",
+      "upgrades": [
+        {
+          "name": "Engineer Training",
+          "desc": ""
+        },
+        {
+          "name": "Plasma Mines",
+          "desc": ""
+        },
+        {
+          "name": "Containment Field",
+          "desc": ""
+        },
+        {
+          "name": "Nanobot Integration",
+          "desc": ""
+        }
+      ]
+    }
+  ]
+}

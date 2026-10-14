@@ -1,5 +1,6 @@
 package com.lastspacecat.starfighterhero.game;
 
+import com.lastspacecat.starfighterhero.game.upgrademenu.UpgradeMenu;
 import javafx.application.Application;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Screen;
