@@ -28,6 +28,11 @@ public class GameField extends Pane {
     private LevelData level;
     private final List<Enemy> enemies = new ArrayList<>();
     private final List<Enemy> enemy_spawn_queue = new ArrayList<>();
+    private final EnemyAttackSystem bossAttackManager = new EnemyAttackSystem();
+    public List<EnemyRocket> getRockets() { return bossAttackManager.getRockets(); }
+    public List<NuclearZone> getZones() { return bossAttackManager.getZones(); }
+    public List<Bullet> getLasers() { return bossAttackManager.getLasers(); }
+    public List<Enemy> getSpawnQueue() {return enemy_spawn_queue;}
 
     public GameField(ScreenManager handling_manager, double width, double height, CampaignState state){
         current_state = state;
@@ -46,7 +51,7 @@ public class GameField extends Pane {
 
         hud = new HUD(player);
         getChildren().add(hud);
-
+        waveManager.setField(this);
         game_loop = new GameTimer();
         game_loop.set_parent(this);
 
@@ -56,10 +61,8 @@ public class GameField extends Pane {
     private void setup_input(){
         setFocusTraversable(true);
         setOnMouseClicked(event->requestFocus());
-
         setOnKeyPressed(event-> pressed_keys.add(event.getCode()));
         setOnKeyReleased(event-> pressed_keys.remove(event.getCode()));
-
         focusedProperty().addListener((obs, was, is)-> {if (!is) pressed_keys.clear();});
     }
 
@@ -70,25 +73,20 @@ public class GameField extends Pane {
         enemies.clear(); //очищаем список врагов
         enemy_spawn_queue.clear(); //очищаем очередь появления врагов
         battleManager.clear_bullets(); //очищаем список пуль
+        bossAttackManager.clear(); // очищаем ракеты боссов и зоны бомб
         player.init_player(); //отправляем игрока на стартовую позицию и восполняем ХП
         game_loop.unpause();
     }
 
-    public void pause(){
-        game_loop.stop();
-        paused = true;
-    }
-
-    public void unpause(){
-        game_loop.unpause();
-        paused = false;
-    }
+    public void pause(){game_loop.stop(); paused = true;}
+    public void unpause(){game_loop.unpause(); paused = false;}
 
     public void update(double dt){
         player.update(dt, pressed_keys, canvas.getWidth(), canvas.getHeight());
         battleManager.update_bullets(dt, player, pressed_keys, canvas.getWidth());
+        bossAttackManager.update(dt, player);
         backgroundManager.update(dt, canvas.getWidth(), canvas.getHeight());
-      
+
         for (Enemy enemy : enemies) {
             enemy.update(dt, player);
         }
@@ -119,16 +117,15 @@ public class GameField extends Pane {
 
     private void render(){
         backgroundManager.render(graph_context, canvas.getWidth(), canvas.getHeight());
-
+        bossAttackManager.render(graph_context);
         graph_context.drawImage(player.get_sprite(), player.get_x(), player.get_y(), PlayerShip.width, PlayerShip.height);
 
         battleManager.render_bullets(graph_context);
         for (Enemy enemy : enemies) {
             graph_context.drawImage(enemy.get_sprite(), enemy.get_x(), enemy.get_y(), enemy.get_width(), enemy.get_height());
 
-            if (enemy instanceof ShieldEnemy) {
-                ((ShieldEnemy) enemy).render_shield(graph_context);
-            }
+            if (enemy instanceof ShieldEnemy) {((ShieldEnemy) enemy).render_shield(graph_context);}
+            if (enemy instanceof BossDreadnought) {((BossDreadnought) enemy).renderShields(graph_context);}
         }
     }
 
