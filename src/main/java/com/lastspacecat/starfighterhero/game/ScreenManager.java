@@ -1,5 +1,6 @@
 package com.lastspacecat.starfighterhero.game;
 
+import com.lastspacecat.starfighterhero.game.upgrademenu.UpgradeMenu;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
@@ -42,7 +43,10 @@ public class ScreenManager {
         game_reference.start_level("/levels/level_" + level + ".json");
     }
 
-    public void go_to_upgrades(){this.scene.setRoot(up_reference);}
+    public void go_to_upgrades(){
+        this.scene.setRoot(up_reference);
+        up_reference.update_from_state();
+    }
 
     public void toggle_pause(){
         if (!game_reference.is_paused()){

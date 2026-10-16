@@ -110,6 +110,7 @@ public class GameField extends Pane {
         if (waveManager.isFinished()){
             if (enemies.isEmpty()){
                 current_state.setCurrent_level(current_state.getCurrent_level()+1);
+                current_state.setUpgrade_points(current_state.getUpgrade_points()+2);
                 screen_manager.show_win_screen();
             }
         }
