@@ -9,8 +9,12 @@ public enum EnemyType {
     KAMIKAZE(Main.screen_width*0.10, Main.screen_width*0.05, Main.screen_width*0.05, "KAMIKAZE_enemy.png", 2),
     ARMORED(Main.screen_width*0.08, Main.screen_width*0.09, Main.screen_width*0.06, "ARMORED_enemy.png", 10),
     SHIELD(Main.screen_width*0.08, Main.screen_width*0.08, Main.screen_width*0.08, "SHIELD_enemy.png", 1),
-    MODULAR(Main.screen_width*0.08, Main.screen_width*0.10, Main.screen_width*0.07, "MODULAR_enemy.png", 4),
-    BONUS(Main.screen_width*0.10, Main.screen_width*0.08, Main.screen_width*0.08, "BONUS_enemy.png", 5);
+    MODULAR(Main.screen_width*0.08, Main.screen_width*0.10, Main.screen_width*0.07, "MODULAR_enemy.png", 3),
+    BONUS(Main.screen_width*0.10, Main.screen_width*0.08, Main.screen_width*0.08, "BONUS_enemy.png", 3),
+
+    BOSS_FRIGATE(Main.screen_width*0.06, Main.screen_width*0.14, Main.screen_width*0.10, ".png", 40),
+    BOSS_CRUISER(Main.screen_width*0.04, Main.screen_width*0.16, Main.screen_width*0.12, ".png", 60),
+    BOSS_DREADNOUGHT(Main.screen_width*0.02, Main.screen_width*0.35, Main.screen_width*0.14, "BOSS_DREADNOUGHT.png", 100);
 
     private final double velocity;
     private final double width;

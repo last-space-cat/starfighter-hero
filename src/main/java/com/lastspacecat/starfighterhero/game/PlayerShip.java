@@ -57,6 +57,7 @@ public class PlayerShip {
         return this.current_hp;
     }
     public Image get_sprite() { return this.sprite; }
+    public void takeDamage(int amount) {this.current_hp -= amount;}
 
     public void resolve_collisions(List<Enemy> enemies){
         for (Enemy enemy : enemies){
