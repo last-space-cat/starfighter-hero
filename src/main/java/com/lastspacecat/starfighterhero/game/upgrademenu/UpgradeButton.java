@@ -3,9 +3,13 @@ package com.lastspacecat.starfighterhero.game.upgrademenu;
 import com.lastspacecat.starfighterhero.game.Main;
 import javafx.css.PseudoClass;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import java.io.InputStream;
 
 import static com.lastspacecat.starfighterhero.game.upgrademenu.UpgradeButton.State.*;
 
@@ -21,7 +25,7 @@ public class UpgradeButton extends StackPane {
     private State state;
     private String name;
     private String desc;
-    private Rectangle connector;
+    private final Rectangle connector;
 
     public UpgradeButton(String new_name, String new_desc, UpgradeMenu parent, State initial, Rectangle connector, int id){
         getStyleClass().add("upgrade-button");
@@ -31,6 +35,15 @@ public class UpgradeButton extends StackPane {
         Rectangle background = new Rectangle(Main.screen_height*0.12, Main.screen_height*0.12);
         background.getStyleClass().add("upgrade-background");
         getChildren().add(background);
+
+        InputStream stream = getClass().getResourceAsStream("/upgrade_icons/icon_" + id + ".png");
+        if (stream != null) {
+            Image icon_image = new Image(stream);
+            ImageView icon_view = new ImageView(icon_image);
+            icon_view.setFitWidth(background.getWidth());
+            icon_view.setFitHeight(background.getHeight());
+            getChildren().add(icon_view);
+        }
 
         Button select_button = new Button("");
         select_button.setPrefSize(Main.screen_height*0.12, Main.screen_height*0.12);

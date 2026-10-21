@@ -120,15 +120,24 @@
 }
 
 .upgrade-button:selected .upgrade-background{
-    -fx-fill: #00008b;
+    -fx-fill: #90d5ff;
+    -fx-stroke: black;
+    -fx-stroke-width: 4;
+    -fx-stroke-type: centered;
 }
 
 .upgrade-button:available .upgrade-background{
     -fx-fill: #88e788;
+    -fx-stroke: black;
+    -fx-stroke-width: 4;
+    -fx-stroke-type: centered;
 }
 
 .upgrade-button:locked .upgrade-background{
     -fx-fill: #aaaaaa;
+    -fx-stroke: black;
+    -fx-stroke-width: 4;
+    -fx-stroke-type: centered;
 }
 
 .upgrade-select-button{
