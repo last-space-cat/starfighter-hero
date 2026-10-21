@@ -1,17 +1,25 @@
 package com.lastspacecat.starfighterhero.game;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CampaignState {
     private int current_level;
-    private final int max_level = 5;
-    public final List<Integer> upgrade_states = new ArrayList<>(List.of(1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0));
+    public static final int max_level = 5;
+    public List<Integer> upgrade_states;
     private int upgrade_points;
 
     public CampaignState(){
         current_level = 1;
         upgrade_points = 0;
+        upgrade_states = new ArrayList<>(List.of(1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0));
+    }
+
+    public void setAll(int level, int points, List<Integer> upgrades){
+        current_level = level;
+        upgrade_points = points;
+        upgrade_states = upgrades;
     }
 
     public int getCurrent_level() {
@@ -26,11 +34,19 @@ public class CampaignState {
         this.current_level = current_level;
     }
 
-    public void load_from_save(int save_slot){
-        if (save_slot > 3 || save_slot <= 0) return;
-        else {
-            //ДОБАВИТЬ СЮДА ЗАГРУЗКУ ИЗ ФАЙЛА
-            return;
+    public void save_state(int save_slot){
+        try {
+            SaveManager.save_campaign(save_slot, current_level, upgrade_points, upgrade_states);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void load_state(int save_slot){
+        try {
+            SaveManager.load_campaign(save_slot, this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

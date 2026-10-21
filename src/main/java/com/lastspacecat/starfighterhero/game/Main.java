@@ -25,7 +25,7 @@ public class Main extends Application{
         CampaignState state = new CampaignState();
         ScreenManager manager = new ScreenManager(main_scene);
         MainMenu main_menu = new MainMenu(manager, state);
-        LoadMenu load_menu = new LoadMenu(manager);
+        LoadMenu load_menu = new LoadMenu(manager, state);
         GameField game_field;
         game_field = new GameField(manager, screen_width, screen_height, state);
         PauseMenu pause_menu = new PauseMenu(manager);

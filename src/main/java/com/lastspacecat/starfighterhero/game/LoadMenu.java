@@ -7,20 +7,34 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 public class LoadMenu extends StackPane {
-    public LoadMenu(ScreenManager handling_manager){
-        Button slot_1 = init_menu_button("Empty save");
-        Button slot_2 = init_menu_button("Empty save");
-        Button slot_3 = init_menu_button("Empty save");
+    private int chosen_save;
+
+    public LoadMenu(ScreenManager handling_manager, CampaignState state){
+        chosen_save = -1;
+        Button slot_1 = init_menu_button("Save 1");
+        Button slot_2 = init_menu_button("Save 2");
+        Button slot_3 = init_menu_button("Save 3");
         Button back_button = init_menu_button("Back");
+        Button save_button = init_menu_button("Save");
+        Button load_button = init_menu_button("Load");
 
+        slot_1.setOnAction(event-> chosen_save = 0);
+        slot_2.setOnAction(event-> chosen_save = 1);
+        slot_3.setOnAction(event-> chosen_save = 2);
         back_button.setOnAction(event -> handling_manager.go_to_main());
+        save_button.setOnAction(event -> state.save_state(chosen_save));
+        load_button.setOnAction(event -> state.load_state(chosen_save));
 
-        VBox box = new VBox(20);
-        box.setAlignment(Pos.CENTER);
-        box.getChildren().addAll(slot_1, slot_2, slot_3, back_button);
-        VBox.setMargin(back_button, new Insets(30, 0, 0, 0));
+        HBox hbox = new HBox(Main.screen_width*0.1);
+        hbox.setAlignment(Pos.BOTTOM_CENTER);
+        hbox.getChildren().addAll(back_button, save_button, load_button);
 
-        getChildren().add(box);
+        VBox vbox = new VBox(20);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.getChildren().addAll(slot_1, slot_2, slot_3, hbox);
+        VBox.setMargin(hbox, new Insets(60, 0, 0, 0));
+
+        getChildren().add(vbox);
         setAlignment(Pos.CENTER);
 
         Image back_image = new Image(getClass().getResourceAsStream("/main_menu_background.png"));
@@ -40,5 +54,5 @@ public class LoadMenu extends StackPane {
                 Main.screen_height*0.1);
         new_button.getStyleClass().add("menu-button");
         return new_button;
-    } // ВРЕМЕННЫЙ МЕТОД, ПОЗЖЕ НАДО ДОБАВИТЬ ФУНКЦИОНАЛ ЗАГРУЗКИ СЕЙВОВ ИЗ ФАЙЛА
+    }
 }

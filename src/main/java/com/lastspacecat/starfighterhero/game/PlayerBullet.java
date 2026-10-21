@@ -34,4 +34,8 @@ public class PlayerBullet {
     public boolean is_out_of_bounds() {
         return x > Screen.getPrimary().getBounds().getWidth();
     }
+
+    public void update_upgrades(){
+
+    }
 }

@@ -33,6 +33,7 @@ public class VictoryScreen extends StackPane {
         HBox box = new HBox(Screen.getPrimary().getBounds().getWidth()*0.1);
         Button button_continue = init_win_button("Continue");
         Button button_menu = init_win_button("Main Menu");
+        Button button_save = init_win_button("Save/Load");
         box.getChildren().addAll(button_continue, button_menu);
         box.setAlignment(Pos.BOTTOM_CENTER);
         box.setPadding(new Insets(0, 0, Main.screen_height*0.04, 0));
@@ -45,7 +46,7 @@ public class VictoryScreen extends StackPane {
     private Button init_win_button(String text){
         Button new_button = new Button(text);
         new_button.setPrefSize(
-                Main.screen_width*0.2,
+                Main.screen_width*0.15,
                 Main.screen_height*0.1);
         new_button.getStyleClass().add("win-screen-button");
         return new_button;
