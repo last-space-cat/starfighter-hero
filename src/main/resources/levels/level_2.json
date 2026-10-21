@@ -11,7 +11,7 @@
       ]
     },
     {
-      "delay": 3.0,
+      "delay": 4.0,
       "enemies": [
         {"type": "SPEEDY", "position":  0.1},
         {"type": "SPEEDY", "position":  0.3},
@@ -20,13 +20,13 @@
       ]
     },
     {
-      "delay": 3.0,
+      "delay": 4.0,
       "enemies": [
         {"type": "BONUS", "position":  0.5}
       ]
     },
     {
-      "delay": 3.0,
+      "delay": 4.0,
       "enemies": [
         {"type": "BASE", "position":  0.1},
         {"type": "SPEEDY", "position":  0.3},
@@ -40,9 +40,14 @@
       "enemies": [
         {"type": "SPEEDY", "position":  0.1},
         {"type": "BASE", "position":  0.3},
-        {"type": "SPEEDY", "position":  0.5},
         {"type": "BASE", "position":  0.7},
         {"type": "SPEEDY", "position":  0.9}
+      ]
+    },
+    {
+      "delay": 7.0,
+      "enemies": [
+        {"type": "BOSS_DREADNOUGHT", "position":  0.5}
       ]
     }
   ]
