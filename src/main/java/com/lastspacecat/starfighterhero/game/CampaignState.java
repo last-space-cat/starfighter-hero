@@ -22,6 +22,12 @@ public class CampaignState {
         upgrade_states = upgrades;
     }
 
+    public void reset(){
+        current_level = 1;
+        upgrade_points = 0;
+        upgrade_states = new ArrayList<>(List.of(1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0));
+    }
+
     public int getCurrent_level() {
         return current_level;
     }
