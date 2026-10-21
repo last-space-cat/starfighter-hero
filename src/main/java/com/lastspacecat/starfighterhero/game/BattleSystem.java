@@ -11,6 +11,7 @@ import java.util.Set;
 public class BattleSystem {
     private final List<Bullet> bullets = new ArrayList<>();
     private double fire_cooldown = 0;
+    private double fire_rate = 0.3;
 
     public void update_bullets(double dt, PlayerShip player, Set<KeyCode> pressed_keys, double max_width) {
         if (fire_cooldown > 0) {
@@ -22,7 +23,7 @@ public class BattleSystem {
             double bullet_y = player.get_y() + (PlayerShip.height * 0.77) - (Bullet.height / 2);
 
             bullets.add(new Bullet(bullet_x, bullet_y, false, Color.YELLOW));
-            fire_cooldown = 0.3;
+            fire_cooldown = fire_rate;
         }
 
         for (int i = 0; i < bullets.size(); i++) {
@@ -72,6 +73,12 @@ public class BattleSystem {
         for (Bullet bullet : bullets) {
             bullet.render(graph_context);
         }
+    }
+
+    public void update_from_state(CampaignState state){
+        if (state.upgrade_states.get(0) == 2){
+            fire_rate = 0.2;
+        } else fire_rate = 0.3;
     }
 }
 

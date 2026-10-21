@@ -73,4 +73,11 @@ public class PlayerShip {
             }
         }
     }
+
+    public void update_from_state(CampaignState state){
+        if (state.upgrade_states.get(4) == 2){
+            if (state.upgrade_states.get(6) == 2) max_hp = 5;
+            else max_hp = 4;
+        } else max_hp = 3;
+    }
 }
