@@ -74,6 +74,8 @@ public class GameField extends Pane {
         enemy_spawn_queue.clear(); //очищаем очередь появления врагов
         battleManager.clear_bullets(); //очищаем список пуль
         bossAttackManager.clear(); // очищаем ракеты боссов и зоны бомб
+        player.update_from_state(current_state); //применяем к игроку апгрейды
+        battleManager.update_from_state(current_state); //применяем апгрейды на атаку и т. п.
         player.init_player(); //отправляем игрока на стартовую позицию и восполняем ХП
         game_loop.unpause();
     }
