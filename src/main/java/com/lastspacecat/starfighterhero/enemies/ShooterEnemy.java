@@ -2,14 +2,14 @@ package com.lastspacecat.starfighterhero.enemies;
 
 import com.lastspacecat.starfighterhero.game.Main;
 import com.lastspacecat.starfighterhero.game.PlayerShip;
-import com.lastspacecat.starfighterhero.game.Bullet;
+import com.lastspacecat.starfighterhero.game.EnemyBullet;
 import javafx.scene.paint.Color;
 import java.util.List;
 
 public class ShooterEnemy extends Enemy {
     private double fireCooldown = 0;
     private final double FIRE_RATE = 2.0;
-    private List<Bullet> laserList = null;
+    private List<EnemyBullet> laserList = null;
 
     public ShooterEnemy(double starting_x, double starting_y, EnemyType type) {
         super(starting_x, starting_y, type);
@@ -29,13 +29,13 @@ public class ShooterEnemy extends Enemy {
             if (fireCooldown <= 0) {
                 fireCooldown = FIRE_RATE;
                 double laserX = this.x;
-                double laserY = this.y + get_height() / 2 - Bullet.height / 2;
-                laserList.add(new Bullet(laserX, laserY, true, Color.ORANGE));
+                double laserY = this.y + get_height() / 2 - EnemyBullet.height / 2;
+                laserList.add(new EnemyBullet(laserX, laserY, true, Color.ORANGE));
             }
         }
     }
 
-    public void setLaserList(List<Bullet> laserList) {
+    public void setLaserList(List<EnemyBullet> laserList) {
         this.laserList = laserList;
     }
 }

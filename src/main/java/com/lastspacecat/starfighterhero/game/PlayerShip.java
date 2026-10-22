@@ -79,5 +79,8 @@ public class PlayerShip {
             if (state.upgrade_states.get(6) == 2) max_hp = 5;
             else max_hp = 4;
         } else max_hp = 3;
+
+        if (state.upgrade_states.get(5) == 2){ velocity = Main.screen_width*0.36; }
+        else { velocity = Main.screen_width*0.24; }
     }
 }

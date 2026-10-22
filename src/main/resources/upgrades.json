@@ -9,7 +9,7 @@
         },
         {
           "name": "Large Caliber",
-          "desc": "Switch your old weapon to a 150-mm heavy cannon provided by the Federation Ordnance Department. It might not be much more powerful, but precision becomes much less of an issue. +300% bullet size."
+          "desc": "Switch your old weapon to a 150-mm heavy cannon provided by the Federation Ordnance Department. It might not be much more powerful, but precision becomes much less of an issue. +200% bullet size."
         },
         {
           "name": "High-Density Tips",
@@ -26,15 +26,15 @@
       "upgrades": [
         {
           "name": "Composite Armor",
-          "desc": ""
+          "desc": "Replace original metal plating with a multi-layer composite armor panels, greatly improving the ship's ability to withstand damage. +1 HP."
         },
         {
-          "name": "Cyclic Capacitors",
-          "desc": ""
+          "name": "High-Power Fuel",
+          "desc": "Fill the fuel tanks with a highly toxic and flammable but incredibly energy-dense chemical compound, which drastically increases engine performance. +50% movement speed."
         },
         {
           "name": "Survival Systems",
-          "desc": ""
+          "desc": "Overhaul internal workings of the ship for greater redundancy, allowing the ship to function perfectly with as little as 32% hull integrity, 66% engine output or 50% of pilot limbs remaining. +1 HP."
         },
         {
           "name": "Advanced Generator",
