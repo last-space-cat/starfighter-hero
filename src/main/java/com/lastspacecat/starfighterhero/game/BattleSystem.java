@@ -62,10 +62,16 @@ public class BattleSystem {
                         bullet.get_y() < enemy.get_y() + enemy.get_height() &&
                         bullet.get_y() + EnemyBullet.height > enemy.get_y()) {
 
-                    enemy.takeDamage(player_damage);
-                    playerBullets.remove(b);
-                    b--;
-                    break;
+                    if (!(playerBullets.get(b).has_pierced(enemy))) {
+                        enemy.takeDamage(player_damage);
+                        playerBullets.get(b).add_to_pierced(enemy);
+                    }
+                    if (playerBullets.get(b).is_out_of_pierce()) {
+                        playerBullets.remove(b);
+                        b--;
+                        break;
+                    }
+
                 }
             }
         }
