@@ -8,11 +8,11 @@ import java.util.List;
 public class EnemyAttackSystem {
     private final List<EnemyRocket> enemyRockets = new ArrayList<>();
     private final List<NuclearZone> nuclearZones = new ArrayList<>();
-    private final List<Bullet> enemyLasers = new ArrayList<>();
+    private final List<EnemyBullet> enemyLasers = new ArrayList<>();
 
     public List<EnemyRocket> getRockets() { return enemyRockets; }
     public List<NuclearZone> getZones() { return nuclearZones; }
-    public List<Bullet> getLasers() { return enemyLasers; }
+    public List<EnemyBullet> getLasers() { return enemyLasers; }
 
     public void clear() {
         enemyRockets.clear();
@@ -45,13 +45,13 @@ public class EnemyAttackSystem {
         }
 
         for (int i = 0; i < enemyLasers.size(); i++) {
-            Bullet laser = enemyLasers.get(i);
+            EnemyBullet laser = enemyLasers.get(i);
             laser.update(dt);
 
             if (laser.get_x() < player.get_x() + PlayerShip.width &&
-                    laser.get_x() + Bullet.width > player.get_x() &&
+                    laser.get_x() + EnemyBullet.width > player.get_x() &&
                     laser.get_y() < player.get_y() + PlayerShip.height &&
-                    laser.get_y() + Bullet.height > player.get_y()) {
+                    laser.get_y() + EnemyBullet.height > player.get_y()) {
 
                 player.takeDamage(1); // Наносим игроку 1 урон
                 enemyLasers.remove(i);
@@ -59,7 +59,7 @@ public class EnemyAttackSystem {
                 continue;
             }
 
-            if (laser.is_out_of_bounds(Main.screen_width)) {
+            if (laser.is_out_of_bounds()) {
                 enemyLasers.remove(i);
                 i--;
             }
@@ -69,6 +69,6 @@ public class EnemyAttackSystem {
     public void render(GraphicsContext graph_context) {
         for (NuclearZone zone : nuclearZones) { zone.render(graph_context); }
         for (EnemyRocket rocket : enemyRockets) { rocket.render(graph_context); }
-        for (Bullet laser : enemyLasers) { laser.render(graph_context); }
+        for (EnemyBullet laser : enemyLasers) { laser.render(graph_context); }
     }
 }

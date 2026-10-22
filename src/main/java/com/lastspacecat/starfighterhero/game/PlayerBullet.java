@@ -7,16 +7,12 @@ import javafx.stage.Screen;
 public class PlayerBullet {
     private double x, y;
     private final double velocity = Main.screen_width*0.33;
-    public static final double width = Main.screen_height*0.014;
-    public static final double height = Main.screen_height*0.006;
+    public static double width = Main.screen_height*0.014;
+    public static double height = Main.screen_height*0.006;
 
     public PlayerBullet(double starting_x, double starting_y) {
         this.x = starting_x;
         this.y = starting_y;
-    }
-
-    public boolean is_out_of_bounds(double max_width) {
-        return x > max_width;
     }
 
     public double get_x() { return x; }
@@ -35,7 +31,8 @@ public class PlayerBullet {
         return x > Screen.getPrimary().getBounds().getWidth();
     }
 
-    public void update_upgrades(){
-
+    public static void update_from_state(CampaignState state){
+        if (state.upgrade_states.get(1) == 2){ height = Main.screen_height*0.018; }
+        else { height = Main.screen_height*0.006; }
     }
 }

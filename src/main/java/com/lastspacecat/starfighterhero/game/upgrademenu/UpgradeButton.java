@@ -72,7 +72,7 @@ public class UpgradeButton extends StackPane {
                 connector.setFill(Color.web("#aaaaaa"));
             }
             if (new_state == SELECTED) {
-                connector.setFill(Color.web("#00008b"));
+                connector.setFill(Color.web("#90d5ff"));
             }
             if (new_state == AVAILABLE) {
                 connector.setFill(Color.web("#88e788"));

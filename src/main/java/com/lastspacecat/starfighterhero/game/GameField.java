@@ -31,7 +31,7 @@ public class GameField extends Pane {
     private final EnemyAttackSystem bossAttackManager = new EnemyAttackSystem();
     public List<EnemyRocket> getRockets() { return bossAttackManager.getRockets(); }
     public List<NuclearZone> getZones() { return bossAttackManager.getZones(); }
-    public List<Bullet> getLasers() { return bossAttackManager.getLasers(); }
+    public List<EnemyBullet> getLasers() { return bossAttackManager.getLasers(); }
     public List<Enemy> getSpawnQueue() {return enemy_spawn_queue;}
 
     public GameField(ScreenManager handling_manager, double width, double height, CampaignState state){
@@ -74,8 +74,9 @@ public class GameField extends Pane {
         enemy_spawn_queue.clear(); //очищаем очередь появления врагов
         battleManager.clear_bullets(); //очищаем список пуль
         bossAttackManager.clear(); // очищаем ракеты боссов и зоны бомб
-        player.update_from_state(current_state); //применяем к игроку апгрейды
+        player.update_from_state(current_state); //применяем к игроку апгрейды (на хп, скорость и т.п)
         battleManager.update_from_state(current_state); //применяем апгрейды на атаку и т. п.
+        PlayerBullet.update_from_state(current_state); //применяем апгрейды, имеющие отношение к пулям игрока
         player.init_player(); //отправляем игрока на стартовую позицию и восполняем ХП
         game_loop.unpause();
     }
@@ -103,9 +104,7 @@ public class GameField extends Pane {
         }
 
         player.resolve_collisions(enemies);
-        if (player.get_current_HP() <= 0){
-            screen_manager.show_def_screen();
-        }
+        if (player.get_current_HP() <= 0){ screen_manager.show_def_screen(); }
 
         render();
 
