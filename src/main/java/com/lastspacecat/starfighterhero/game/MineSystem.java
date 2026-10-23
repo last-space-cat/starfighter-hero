@@ -7,6 +7,7 @@ import java.util.List;
 
 public class MineSystem {
     private final List<PlayerMine> activeMines = new ArrayList<>();
+    private double mineX = Main.screen_width * 0.05;
 
     public void clear() {
         activeMines.clear();
@@ -14,11 +15,9 @@ public class MineSystem {
 
     public void deployMines() {
         activeMines.clear();
-        double mineX = Main.screen_width * 0.05;
-        double totalHeight = Main.screen_height;
 
-        for (int i = 1; i <= 7; i++) {
-            double mineY = (totalHeight / 8) * i - (Main.screen_height * 0.015);
+        for (int i = 0; i < 7; i++) {
+            double mineY = (Main.screen_height/ 7) * i + (Main.screen_height * 0.015);
             activeMines.add(new PlayerMine(mineX, mineY));
         }
     }
@@ -26,14 +25,22 @@ public class MineSystem {
     public void checkCollisions(List<Enemy> enemies) {
         for (int m = 0; m < activeMines.size(); m++) {
             PlayerMine mine = activeMines.get(m);
+            boolean exploding = false;
 
             for (Enemy enemy : enemies) {
                 if (mine.checkCollision(enemy)) {
-                    enemy.takeDamage(10);
-                    activeMines.remove(m);
-                    m--;
+                    exploding = true;
                     break;
                 }
+            }
+            if (exploding) {
+                for (Enemy enemy : enemies) {
+                    if (mine.checkExplosion(enemy)) {
+                        enemy.takeDamage(10);
+                    }
+                }
+                activeMines.remove(m);
+                m--;
             }
         }
     }

@@ -22,7 +22,9 @@
     {
       "delay": 4.0,
       "enemies": [
-        {"type": "BONUS", "position":  0.5}
+        {"type": "BONUS", "position":  0.2},
+        {"type": "BONUS", "position":  0.5},
+        {"type": "BONUS", "position":  0.8}
       ]
     },
     {
@@ -45,9 +47,11 @@
       ]
     },
     {
-      "delay": 7.0,
+      "delay": 4.0,
       "enemies": [
-        {"type": "BOSS_DREADNOUGHT", "position":  0.5}
+        {"type": "BONUS", "position":  0.2},
+        {"type": "BONUS", "position":  0.5},
+        {"type": "BONUS", "position":  0.8}
       ]
     }
   ]

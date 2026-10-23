@@ -76,12 +76,14 @@ public class GameField extends Pane {
         enemy_spawn_queue.clear(); //очищаем очередь появления врагов
         battleManager.clear_bullets(); //очищаем список пуль
         bossAttackManager.clear(); // очищаем ракеты боссов и зоны бомб
+        bonusManager.clear(); //очищаем бонусы на поле
+        mineManager.clear(); //очищаем мины
         player.update_from_state(current_state); //применяем к игроку апгрейды (на хп, скорость и т.п)
         battleManager.update_from_state(current_state); //применяем апгрейды на атаку и т. п.
         PlayerBullet.update_from_state(current_state); //применяем апгрейды, имеющие отношение к пулям игрока
+        DroppedBonus.update_from_state(current_state); //применяем апгрейды к бонусам
+        PlayerMine.update_from_state(current_state); //применяем апгрейды к минам
         player.init_player(); //отправляем игрока на стартовую позицию и восполняем ХП
-        bonusManager.clear();
-        mineManager.clear();
         game_loop.unpause();
     }
 
