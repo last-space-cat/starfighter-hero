@@ -81,7 +81,6 @@ public class PlayerShip {
     public boolean isTripleFireActive() {return activeEffects.containsKey(DroppedBonus.BonusType.TRIPLE_FIRE);}
     public boolean isLaserActive() {return activeEffects.containsKey(DroppedBonus.BonusType.LASER);}
 
-
     public void resolve_collisions(List<Enemy> enemies){
         for (Enemy enemy : enemies){
             if (enemy.get_x() + enemy.get_width() > x && enemy.get_x() < (x+width)){
@@ -110,6 +109,7 @@ public class PlayerShip {
         if (state.upgrade_states.get(5) == 2){ velocity = Main.screen_width*0.36; }
         else { velocity = Main.screen_width*0.24; }
     }
+
     public void heal(int amount) {
         this.current_hp += amount;
         if (this.current_hp > this.max_hp) {

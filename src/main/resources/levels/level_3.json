@@ -45,6 +45,12 @@
       "enemies": [
         {"type": "BONUS", "position":  0.5}
       ]
+    },
+    {
+      "delay": 7.0,
+      "enemies": [
+        {"type": "BOSS_DREADNOUGHT", "position":  0.5}
+      ]
     }
   ]
 }
