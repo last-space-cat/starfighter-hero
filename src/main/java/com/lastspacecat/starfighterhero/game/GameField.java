@@ -33,6 +33,8 @@ public class GameField extends Pane {
     public List<NuclearZone> getZones() { return bossAttackManager.getZones(); }
     public List<EnemyBullet> getLasers() { return bossAttackManager.getLasers(); }
     public List<Enemy> getSpawnQueue() {return enemy_spawn_queue;}
+    private final BonusSystem bonusManager = new BonusSystem();
+    private final MineSystem mineManager = new MineSystem();
 
     public GameField(ScreenManager handling_manager, double width, double height, CampaignState state){
         current_state = state;
@@ -78,6 +80,8 @@ public class GameField extends Pane {
         battleManager.update_from_state(current_state); //применяем апгрейды на атаку и т. п.
         PlayerBullet.update_from_state(current_state); //применяем апгрейды, имеющие отношение к пулям игрока
         player.init_player(); //отправляем игрока на стартовую позицию и восполняем ХП
+        bonusManager.clear();
+        mineManager.clear();
         game_loop.unpause();
     }
 
@@ -86,15 +90,17 @@ public class GameField extends Pane {
 
     public void update(double dt){
         player.update(dt, pressed_keys, canvas.getWidth(), canvas.getHeight());
-        battleManager.update_bullets(dt, player, pressed_keys, canvas.getWidth());
+        battleManager.update_bullets(dt, player, pressed_keys, canvas.getWidth(), enemies);
+        bonusManager.update(dt, player, mineManager);
         bossAttackManager.update(dt, player);
         backgroundManager.update(dt, canvas.getWidth(), canvas.getHeight());
+        mineManager.checkCollisions(enemies);
 
         for (Enemy enemy : enemies) {
             enemy.update(dt, player);
         }
 
-        battleManager.check_collisions(enemies);
+        battleManager.check_collisions(enemies, bonusManager);
         waveManager.update(dt, enemy_spawn_queue);
         hud.update();
 
@@ -120,7 +126,10 @@ public class GameField extends Pane {
     private void render(){
         backgroundManager.render(graph_context, canvas.getWidth(), canvas.getHeight());
         bossAttackManager.render(graph_context);
+        bonusManager.render(graph_context);
         graph_context.drawImage(player.get_sprite(), player.get_x(), player.get_y(), PlayerShip.width, PlayerShip.height);
+        player.render_shield(graph_context);
+        mineManager.render(graph_context);
 
         battleManager.render_bullets(graph_context);
         for (Enemy enemy : enemies) {
