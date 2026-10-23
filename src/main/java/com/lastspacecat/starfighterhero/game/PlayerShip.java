@@ -3,9 +3,12 @@ package com.lastspacecat.starfighterhero.game;
 import com.lastspacecat.starfighterhero.enemies.Enemy;
 import javafx.scene.input.KeyCode;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
 
 public class PlayerShip {
     private double x, y;
@@ -15,6 +18,7 @@ public class PlayerShip {
     private int current_hp;
     private int max_hp;
     private final Image sprite;
+    private final Map<DroppedBonus.BonusType, Double> activeEffects = new HashMap<>();
 
     PlayerShip(double starting_x, double starting_y){ //ПОЗЖЕ НУЖНО ДОБАВИТЬ В КОНСТРУКТОР Campaign_State для установки апгрейдов
         velocity = Main.screen_width*0.25;
@@ -27,6 +31,7 @@ public class PlayerShip {
         x = Main.screen_width*0.1;
         y = Main.screen_height*0.5 - width*0.5;
         current_hp = max_hp;
+        activeEffects.clear();
     }
 
     public double get_x(){return x;}
@@ -51,6 +56,15 @@ public class PlayerShip {
 
         x = Math.clamp(x, 0, Main.screen_width - width);
         y = Math.clamp(y, 0, Main.screen_height - height);
+
+        activeEffects.entrySet().removeIf(entry -> {
+            double timeLeft = entry.getValue() - dt;
+            if (timeLeft <= 0) {
+                return true;
+            }
+            entry.setValue(timeLeft);
+            return false;
+        });
     }
 
     public int get_current_HP(){
@@ -59,17 +73,30 @@ public class PlayerShip {
     public Image get_sprite() { return this.sprite; }
     public void takeDamage(int amount) {this.current_hp -= amount;}
 
+    public void activateBonus(DroppedBonus.BonusType type, double duration) {
+        double currentDuration = activeEffects.getOrDefault(type, 0.0);
+        activeEffects.put(type, Math.max(currentDuration, duration));
+    }
+    public boolean isShieldActive() {return activeEffects.containsKey(DroppedBonus.BonusType.SHIELD);}
+    public boolean isTripleFireActive() {return activeEffects.containsKey(DroppedBonus.BonusType.TRIPLE_FIRE);}
+    public boolean isLaserActive() {return activeEffects.containsKey(DroppedBonus.BonusType.LASER);}
+
+
     public void resolve_collisions(List<Enemy> enemies){
         for (Enemy enemy : enemies){
             if (enemy.get_x() + enemy.get_width() > x && enemy.get_x() < (x+width)){
                 if (enemy.get_y() + enemy.get_height() > y && enemy.get_y() <(y+height)){
-                    current_hp -= 1;
-                    enemy.takeDamage(100); //ЗДЕСЬ ПРОСТО НАНОСИМ БОЛЬШЕ УРОНА, ЧЕМ МАКСИМУМ ХП
+                    if (!isShieldActive()) {
+                        current_hp -= 1;
+                    }
+                    enemy.takeDamage(100);  //ЗДЕСЬ ПРОСТО НАНОСИМ БОЛЬШЕ УРОНА, ЧЕМ МАКСИМУМ ХП
                 }
             }
             if (enemy.get_x() <= 0){
-                current_hp -= 1;
-                enemy.takeDamage(100); //ЗДЕСЬ ПРОСТО НАНОСИМ БОЛЬШЕ УРОНА, ЧЕМ МАКСИМУМ ХП
+                if (!isShieldActive()) {
+                    current_hp -= 1;
+                }
+                enemy.takeDamage(100);  //ЗДЕСЬ ПРОСТО НАНОСИМ БОЛЬШЕ УРОНА, ЧЕМ МАКСИМУМ ХП
             }
         }
     }
@@ -82,5 +109,29 @@ public class PlayerShip {
 
         if (state.upgrade_states.get(5) == 2){ velocity = Main.screen_width*0.36; }
         else { velocity = Main.screen_width*0.24; }
+    }
+    public void heal(int amount) {
+        this.current_hp += amount;
+        if (this.current_hp > this.max_hp) {
+            this.current_hp = this.max_hp;
+        }
+    }
+
+    public void render_shield(javafx.scene.canvas.GraphicsContext graph_context) {
+        if (isShieldActive()) {
+            double center_x = x + width / 2;
+            double center_y = y + height / 2;
+            double padding = Main.screen_height * 0.01;
+            double radius = Math.sqrt(width * width + height * height) / 2 + padding;
+            double draw_x = center_x - radius;
+            double draw_y = center_y - radius;
+            double diameter = radius * 2;
+
+            graph_context.setFill(Color.rgb(0, 191, 255, 0.15));
+            graph_context.fillOval(draw_x, draw_y, diameter, diameter);
+            graph_context.setStroke(Color.rgb(0, 255, 255, 0.8));
+            graph_context.setLineWidth(4);
+            graph_context.strokeOval(draw_x, draw_y, diameter, diameter);
+        }
     }
 }

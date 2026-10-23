@@ -17,6 +17,7 @@ public class Enemy {
     public void takeDamage(int amount) {
         currentHP -= amount;
     }
+    public EnemyType getType() {return this.type;}
 
     public boolean isDead() {
         return currentHP <= 0;
