@@ -1,17 +1,32 @@
 package com.lastspacecat.starfighterhero.game;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 
 public class DroppedBonus {
     public enum BonusType {
-        SHIELD, LASER, MINES, REPAIR, TRIPLE_FIRE
+        SHIELD("bonus_shield.png"),
+        LASER("bonus_laser.png"),
+        MINES("bonus_mines.png"),
+        REPAIR("bonus_repair.png"),
+        TRIPLE_FIRE("bonus_triple.png");
+
+        private final Image sprite;
+
+        BonusType(String spritePath) {
+            java.io.InputStream is = getClass().getResourceAsStream("/bonus_icons/" + spritePath);
+            this.sprite = (is != null) ? new Image(is) : null;
+        }
+
+        public Image getSprite() {
+            return this.sprite;
+        }
     }
 
     private double x, y;
     private final BonusType type;
     private final double speed = Main.screen_width * 0.08;
-    private final double size = Main.screen_height * 0.04;
+    private final double size = Main.screen_height * 0.08;
 
     public DroppedBonus(double x, double y, BonusType type) {
         this.x = x;
@@ -24,41 +39,9 @@ public class DroppedBonus {
     }
 
     public void render(GraphicsContext gc) {
-        if (type == BonusType.SHIELD) {
-            gc.setFill(Color.rgb(0, 255, 255, 0.9));
-            gc.fillOval(x, y, size, size);
-            gc.setStroke(Color.WHITE);
-            gc.setLineWidth(2);
-            gc.strokeOval(x, y, size, size);
-        }
-        else if (type == BonusType.REPAIR) {
-            gc.setFill(Color.rgb(50, 205, 50, 0.9));
-            gc.fillOval(x, y, size, size);
-            gc.setStroke(Color.WHITE);
-            gc.setLineWidth(3);
-            gc.strokeLine(x + size * 0.25, y + size * 0.5, x + size * 0.75, y + size * 0.5);
-            gc.strokeLine(x + size * 0.5, y + size * 0.25, x + size * 0.5, y + size * 0.75);
-        }
-        else if (type == BonusType.TRIPLE_FIRE) {
-            gc.setFill(Color.rgb(255, 0, 255, 0.9));
-            gc.fillOval(x, y, size, size);
-            gc.setStroke(Color.WHITE);
-            gc.setLineWidth(2);
-            gc.strokeOval(x, y, size, size);
-        }
-        else if (type == BonusType.MINES) {
-            gc.setFill(Color.rgb(139, 0, 0, 0.95));
-            gc.fillOval(x, y, size, size);
-            gc.setStroke(Color.ORANGE);
-            gc.setLineWidth(2);
-            gc.strokeOval(x, y, size, size);
-        }
-        else if (type == BonusType.LASER) {
-            gc.setFill(Color.rgb(139, 199, 0, 0.95));
-            gc.fillOval(x, y, size, size);
-            gc.setStroke(Color.ORANGE);
-            gc.setLineWidth(2);
-            gc.strokeOval(x, y, size, size);
+        Image image = type.getSprite();
+        if (image != null && !image.isError()) {
+            gc.drawImage(image, x, y, size, size);
         }
     }
 
