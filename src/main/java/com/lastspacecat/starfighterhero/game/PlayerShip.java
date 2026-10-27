@@ -85,16 +85,16 @@ public class PlayerShip {
         for (Enemy enemy : enemies){
             if (enemy.get_x() + enemy.get_width() > x && enemy.get_x() < (x+width)){
                 if (enemy.get_y() + enemy.get_height() > y && enemy.get_y() <(y+height)){
-                    if (!isShieldActive()) {
+                    if (isShieldActive()) {
+                        activeEffects.remove(DroppedBonus.BonusType.SHIELD);
+                    } else {
                         current_hp -= 1;
                     }
-                    enemy.takeDamage(100);  //ЗДЕСЬ ПРОСТО НАНОСИМ БОЛЬШЕ УРОНА, ЧЕМ МАКСИМУМ ХП
+                    enemy.takeDamage(100);//ЗДЕСЬ ПРОСТО НАНОСИМ БОЛЬШЕ УРОНА, ЧЕМ МАКСИМУМ ХП
                 }
             }
             if (enemy.get_x() <= 0){
-                if (!isShieldActive()) {
-                    current_hp -= 1;
-                }
+                current_hp -= 1;
                 enemy.takeDamage(100);  //ЗДЕСЬ ПРОСТО НАНОСИМ БОЛЬШЕ УРОНА, ЧЕМ МАКСИМУМ ХП
             }
         }
