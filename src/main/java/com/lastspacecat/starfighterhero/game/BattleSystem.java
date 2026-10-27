@@ -107,7 +107,9 @@ public class BattleSystem {
             if (enemy.isDead()) {
                 if (enemy.getType() == EnemyType.BONUS) {
                     double rand = Math.random();
-                    if (rand < 0.2) {
+                    if (rand < 0.99){
+                        bonusSystem.spawnBonus(enemy.get_x(), enemy.get_y(), DroppedBonus.BonusType.NUKE);
+                    }else if (rand < 0.2) {
                         bonusSystem.spawnBonus(enemy.get_x(), enemy.get_y(), DroppedBonus.BonusType.SHIELD);
                     } else if (rand < 0.4) {
                         bonusSystem.spawnBonus(enemy.get_x(), enemy.get_y(), DroppedBonus.BonusType.REPAIR);

@@ -12,8 +12,8 @@ public enum EnemyType {
     MODULAR(Main.screen_width*0.08, Main.screen_width*0.10, Main.screen_width*0.07, "MODULAR_enemy.png", 3),
     BONUS(Main.screen_width*0.10, Main.screen_width*0.08, Main.screen_width*0.08, "BONUS_enemy.png", 3),
 
-    BOSS_FRIGATE(Main.screen_width*0.06, Main.screen_width*0.14, Main.screen_width*0.10, ".png", 40),
-    BOSS_CRUISER(Main.screen_width*0.04, Main.screen_width*0.16, Main.screen_width*0.12, ".png", 60),
+    BOSS_FRIGATE(Main.screen_width*0.06, Main.screen_width*0.32, Main.screen_width*0.15, "BOSS_FRIGATE.png", 40),
+    BOSS_CRUISER(Main.screen_width*0.04, Main.screen_width*0.30, Main.screen_width*0.13, "BOSS_CRUISER.png", 60),
     BOSS_DREADNOUGHT(Main.screen_width*0.02, Main.screen_width*0.35, Main.screen_width*0.14, "BOSS_DREADNOUGHT.png", 100);
 
     private final double velocity;

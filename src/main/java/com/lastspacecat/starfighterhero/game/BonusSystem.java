@@ -15,14 +15,13 @@ public class BonusSystem {
     public void spawnBonus(double x, double y, BonusType type) {
         activeBonuses.add(new DroppedBonus(x, y, type));
     }
-
-    public void update(double dt, PlayerShip player, MineSystem mineSystem) {
+    public void update(double dt, PlayerShip player, MineSystem mineSystem, GameField field) {
         for (int i = 0; i < activeBonuses.size(); i++) {
             DroppedBonus bonus = activeBonuses.get(i);
             bonus.update(dt);
 
             if (bonus.checkCollision(player)) {
-                bonus.collect(player, mineSystem);
+                bonus.collect(player, mineSystem, field);
                 activeBonuses.remove(i);
                 i--;
                 continue;
