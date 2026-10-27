@@ -16,6 +16,7 @@ public class BattleSystem {
     private int player_damage = 1;
     private final PlayerLaser playerLaser = new PlayerLaser();
     private boolean isLaserFiringThisFrame = false;
+    private boolean hasSixBullets = false;
 
     public void update_bullets(double dt, PlayerShip player, Set<KeyCode> pressed_keys, double max_width, List<Enemy> enemies) {
         if (fire_cooldown > 0) {
@@ -32,18 +33,29 @@ public class BattleSystem {
                 bullet.update(dt);
                 if (bullet.is_out_of_bounds()) { enemyBullets.remove(i); i--; }
             }
+            for (int i = 0; i < playerBullets.size(); i++) {
+                PlayerBullet bullet = playerBullets.get(i);
+                bullet.update(dt);
+                if (bullet.is_out_of_bounds()) { playerBullets.remove(i); i--; }
+            }
             return;
         }
-        if (pressed_keys.contains(KeyCode.SPACE) && fire_cooldown <= 0) {
+
+        if (pressed_keys.contains(KeyCode.SPACE) && fire_cooldown <= 0) { //СТРЕЛЬБА
             double bullet_x = player.get_x() + PlayerShip.width * 0.9;
             double bullet_y = player.get_y() + (PlayerShip.height * 0.77) - (EnemyBullet.height / 2);
 
             if (player.isTripleFireActive()) {
-                playerBullets.add(new PlayerBullet(bullet_x, bullet_y, 0));  //центр
-                playerBullets.add(new PlayerBullet(bullet_x, bullet_y, -1)); //верх
-                playerBullets.add(new PlayerBullet(bullet_x, bullet_y, 1));  //низ
+                playerBullets.add(new PlayerBullet(bullet_x, bullet_y, 0, 1));  //центр
+                playerBullets.add(new PlayerBullet(bullet_x, bullet_y, -1, 1)); //верх
+                playerBullets.add(new PlayerBullet(bullet_x, bullet_y, 1, 1));  //низ
+                if (hasSixBullets){
+                    playerBullets.add(new PlayerBullet(bullet_x, bullet_y, 0, -1));  //центр-влево
+                    playerBullets.add(new PlayerBullet(bullet_x, bullet_y, -1, -1)); //верх-влево
+                    playerBullets.add(new PlayerBullet(bullet_x, bullet_y, 1, -1)); //низ-влево
+                }
             } else {
-                playerBullets.add(new PlayerBullet(bullet_x, bullet_y, 0));
+                playerBullets.add(new PlayerBullet(bullet_x, bullet_y, 0, 1));
             }
             fire_cooldown = player_fire_rate;
         }
@@ -120,12 +132,13 @@ public class BattleSystem {
     }
 
     public void update_from_state(CampaignState state){
-        if (state.upgrade_states.get(0) == 2){
-            player_fire_rate = 0.2;
-        } else player_fire_rate = 0.3;
+        if (state.upgrade_states.get(0) == 2) player_fire_rate = 0.2;
+        else player_fire_rate = 0.3;
 
-        if (state.upgrade_states.get(3) == 2){
-            player_damage = 2;
-        } else player_damage = 1;
+        if (state.upgrade_states.get(3) == 2) player_damage = 2;
+        else player_damage = 1;
+
+        if (state.upgrade_states.get(10) == 2) hasSixBullets = true;
+        else hasSixBullets = false;
     }
 }

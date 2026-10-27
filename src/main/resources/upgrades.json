@@ -47,7 +47,7 @@
       "upgrades": [
         {
           "name": "Efficient Coolant",
-          "desc": ""
+          "desc": "Add a state-of-the-art heat disposal system that allows you to negate the energy cost of cooling the Laser, substantially increasing battery life. +100% Laser active time."
         },
         {
           "name": "Repurposed ICBM",
@@ -55,7 +55,7 @@
         },
         {
           "name": "Use More Gun",
-          "desc": ""
+          "desc": "As a wise man said - when enemies are everywhere, SHOOT EVERYWHERE. Multi-Fire fires in six directions instead of three."
         },
         {
           "name": "Thermonuclear Warhead",
@@ -68,11 +68,11 @@
       "upgrades": [
         {
           "name": "Engineer Training",
-          "desc": ""
+          "desc": "Attend engineer training courses and learn how to properly apply the instruments you may find in a Repair Kit. Repair Kit restores +100% HP."
         },
         {
           "name": "Plasma Mines",
-          "desc": ""
+          "desc": "Replace the outdated high explosive payload in your Mines with a new plasma ejection system. The newer system delivers just as much devastation in an increased radius. Mine explosion radius +100%."
         },
         {
           "name": "Containment Field",
@@ -80,7 +80,7 @@
         },
         {
           "name": "Nanobot Integration",
-          "desc": ""
+          "desc": "Integrate a nanobot reconstruction system into your Repair Kits, allowing you to completely return the ship into brand new state from any degree of damage. Repair Kit restores all HP immediately."
         }
       ]
     }
