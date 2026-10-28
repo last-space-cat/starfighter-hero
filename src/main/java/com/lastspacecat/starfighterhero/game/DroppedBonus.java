@@ -81,6 +81,19 @@ public class DroppedBonus {
         }
     }
 
+    public void collect(PlayerShip player, MineSystem mineSystem, SandboxField field) {
+        if (this.type == BonusType.REPAIR) {
+            player.heal(heal_amount);
+        } else if (this.type == BonusType.MINES) {
+            mineSystem.deployMines();
+        } else if (this.type == BonusType.NUKE) {
+            field.getPlayerNuke().activate(field.getEnemies());
+        } else {
+            double duration = durations.get(this.type);
+            player.activateBonus(this.type, duration);
+        }
+    }
+
     public boolean isOutOfBounds() {
         return x < -size;
     }

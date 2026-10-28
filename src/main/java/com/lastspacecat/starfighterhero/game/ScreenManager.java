@@ -35,6 +35,10 @@ public class ScreenManager {
         if (!game_reference.is_paused()){
             game_reference.pause();
         }
+        if (!sand_reference.is_paused()){
+            game_reference.pause();
+        }
+
     }
     public void go_to_load(){this.scene.setRoot(load_reference); }
 

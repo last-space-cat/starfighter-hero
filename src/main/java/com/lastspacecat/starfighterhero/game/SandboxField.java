@@ -1,7 +1,6 @@
 package com.lastspacecat.starfighterhero.game;
 
 import com.lastspacecat.starfighterhero.enemies.*;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -22,7 +21,7 @@ public class SandboxField extends Pane {
     private final Set<KeyCode> pressed_keys = EnumSet.noneOf(KeyCode.class);
     private final ScrollingBackground backgroundManager = new ScrollingBackground("/game_background_temp.png", 40);
     private final BattleSystem battleManager = new BattleSystem();
-    private SandboxTimer game_loop;
+    private final SandboxTimer game_loop;
     private final HUD hud;
     private boolean paused = false;
     private final List<Enemy> enemies = new ArrayList<>();
@@ -35,6 +34,10 @@ public class SandboxField extends Pane {
     private final BonusSystem bonusManager = new BonusSystem();
     private final MineSystem mineManager = new MineSystem();
     private final SandboxControls controls;
+    private final PlayerNuke playerNuke = new PlayerNuke();
+    public PlayerNuke getPlayerNuke() { return playerNuke; }
+    public List<Enemy> getEnemies() { return enemies; }
+    public BonusSystem getBonusManager() { return bonusManager; }
 
     public SandboxField(ScreenManager handling_manager, double width, double height, CampaignState state){
         current_state = state;
@@ -49,9 +52,9 @@ public class SandboxField extends Pane {
         pause_button.getStyleClass().add("menu-button");
         pause_button.relocate(Main.screen_width-Main.screen_height*0.07-20, 20);
         getChildren().add(pause_button);
-        pause_button.setOnAction(event -> screen_manager.toggle_pause());
+        pause_button.setOnAction(event -> {screen_manager.toggle_pause(); current_state.reset();});
 
-        controls = new SandboxControls(enemy_spawn_queue, this);
+        controls = new SandboxControls(enemy_spawn_queue, this, current_state);
         getChildren().add(controls);
         controls.relocate(0, Main.screen_height - Main.screen_width*0.08);
         hud = new HUD(player);
@@ -91,12 +94,19 @@ public class SandboxField extends Pane {
     public void unpause(){game_loop.unpause(); paused = false;}
 
     public void update(double dt){
+        player.update_from_state(current_state);
+        battleManager.update_from_state(current_state);
+        PlayerBullet.update_from_state(current_state);
+        DroppedBonus.update_from_state(current_state);
+        PlayerMine.update_from_state(current_state);
+
         player.update(dt, pressed_keys, canvas.getWidth(), canvas.getHeight());
         battleManager.update_bullets(dt, player, pressed_keys, canvas.getWidth(), enemies);
-        bonusManager.update(dt, player, mineManager);
+        bonusManager.update(dt, player, mineManager, this);
         bossAttackManager.update(dt, player);
         backgroundManager.update(dt, canvas.getWidth(), canvas.getHeight());
         mineManager.checkCollisions(enemies);
+        playerNuke.update(dt);
 
         for (Enemy enemy : enemies) {
             enemy.update(dt, player);
@@ -122,6 +132,7 @@ public class SandboxField extends Pane {
         graph_context.drawImage(player.get_sprite(), player.get_x(), player.get_y(), PlayerShip.width, PlayerShip.height);
         player.render_shield(graph_context);
         mineManager.render(graph_context);
+        playerNuke.render(graph_context);
 
         battleManager.render_bullets(graph_context);
         for (Enemy enemy : enemies) {
