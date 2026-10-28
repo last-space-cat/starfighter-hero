@@ -94,7 +94,6 @@ public class BattleSystem {
                         bullet.get_x() + EnemyBullet.width > enemy.get_x() &&
                         bullet.get_y() < enemy.get_y() + enemy.get_height() &&
                         bullet.get_y() + EnemyBullet.height > enemy.get_y()) {
-
                     enemy.takeDamage(player_damage);
                     playerBullets.remove(b);
                     b--;
@@ -107,15 +106,15 @@ public class BattleSystem {
             if (enemy.isDead()) {
                 if (enemy.getType() == EnemyType.BONUS) {
                     double rand = Math.random();
-                    if (rand < 0.99){
+                    if (rand < 0.17){
                         bonusSystem.spawnBonus(enemy.get_x(), enemy.get_y(), DroppedBonus.BonusType.NUKE);
-                    }else if (rand < 0.2) {
+                    }else if (rand < 0.34) {
                         bonusSystem.spawnBonus(enemy.get_x(), enemy.get_y(), DroppedBonus.BonusType.SHIELD);
-                    } else if (rand < 0.4) {
+                    } else if (rand < 0.51) {
                         bonusSystem.spawnBonus(enemy.get_x(), enemy.get_y(), DroppedBonus.BonusType.REPAIR);
-                    } else if (rand < 0.6) {
+                    } else if (rand < 0.68) {
                         bonusSystem.spawnBonus(enemy.get_x(), enemy.get_y(), DroppedBonus.BonusType.TRIPLE_FIRE);
-                    } else if (rand < 0.8) {
+                    } else if (rand < 0.84) {
                         bonusSystem.spawnBonus(enemy.get_x(), enemy.get_y(), DroppedBonus.BonusType.MINES);
                     } else {
                         bonusSystem.spawnBonus(enemy.get_x(), enemy.get_y(), DroppedBonus.BonusType.LASER);

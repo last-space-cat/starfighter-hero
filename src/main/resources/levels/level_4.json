@@ -53,6 +53,12 @@
         {"type": "SHOOTER", "position":  0.8},
         {"type": "SHOOTER", "position":  0.9}
       ]
+    },
+    {
+      "delay": 3.0,
+      "enemies": [
+        {"type": "BOSS_DREADNOUGHT", "position":  0.5}
+      ]
     }
   ]
 }
