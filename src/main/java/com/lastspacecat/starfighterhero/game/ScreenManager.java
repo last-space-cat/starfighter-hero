@@ -14,6 +14,7 @@ public class ScreenManager {
     private DefeatScreen def_reference;
     private VictoryScreen win_reference;
     private UpgradeMenu up_reference;
+    private SandboxField sand_reference;
     // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ ССЫЛКУ ЗДЕСЬ
 
     public ScreenManager(Scene scene){
@@ -27,7 +28,7 @@ public class ScreenManager {
     public void set_def_reference(DefeatScreen new_ref){this.def_reference = new_ref; }
     public void set_win_reference(VictoryScreen new_ref){this.win_reference = new_ref; }
     public void set_upgrade_reference(UpgradeMenu new_ref){this.up_reference = new_ref; }
-    // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ СЕТТЕР ЗДЕСЬ
+    public void set_sand_reference(SandboxField new_ref){this.sand_reference = new_ref; }
 
     public void go_to_main(){
         this.scene.setRoot(main_reference);
@@ -49,18 +50,34 @@ public class ScreenManager {
     }
 
     public void toggle_pause(){
-        if (!game_reference.is_paused()){
-            game_reference.getChildren().add(pause_reference);
-            pause_reference.relocate(
-                    Screen.getPrimary().getBounds().getWidth()*0.35,
-                    Screen.getPrimary().getBounds().getHeight()*0.2
-            );
-            game_reference.pause();
+        if (this.scene.getRoot() == game_reference) {
+            if (!game_reference.is_paused()) {
+                game_reference.getChildren().add(pause_reference);
+                pause_reference.relocate(
+                        Screen.getPrimary().getBounds().getWidth() * 0.35,
+                        Screen.getPrimary().getBounds().getHeight() * 0.2
+                );
+                game_reference.pause();
+            } else {
+                game_reference.getChildren().remove(pause_reference);
+                game_reference.requestFocus();
+                game_reference.unpause();
+            }
         }
-        else{
-            game_reference.getChildren().remove(pause_reference);
-            game_reference.requestFocus();
-            game_reference.unpause();
+
+        if (this.scene.getRoot() == sand_reference) {
+            if (!sand_reference.is_paused()) {
+                sand_reference.getChildren().add(pause_reference);
+                pause_reference.relocate(
+                        Screen.getPrimary().getBounds().getWidth() * 0.35,
+                        Screen.getPrimary().getBounds().getHeight() * 0.2
+                );
+                sand_reference.pause();
+            } else {
+                sand_reference.getChildren().remove(pause_reference);
+                sand_reference.requestFocus();
+                sand_reference.unpause();
+            }
         }
     }
 
@@ -87,5 +104,10 @@ public class ScreenManager {
     }
 
     public void hide_win_screen(){game_reference.getChildren().remove(win_reference);}
-    // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ УСТАНОВЩИК ЗДЕСЬ
+
+    public void go_to_sandbox(){
+        this.scene.setRoot(sand_reference);
+        sand_reference.requestFocus();
+        sand_reference.start_sandbox();
+    }
 }
