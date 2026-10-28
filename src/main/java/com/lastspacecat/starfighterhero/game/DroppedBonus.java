@@ -12,7 +12,8 @@ public class DroppedBonus {
         LASER("bonus_laser.png"),
         MINES("bonus_mines.png"),
         REPAIR("bonus_repair.png"),
-        TRIPLE_FIRE("bonus_triple.png");
+        TRIPLE_FIRE("bonus_triple.png"),
+        NUKE("bonus_nuclear.png");
 
         private final Image sprite;
 
@@ -34,6 +35,7 @@ public class DroppedBonus {
         durations.put(BonusType.LASER, 5.0);
         durations.put(BonusType.REPAIR, 0.0);
         durations.put(BonusType.TRIPLE_FIRE, 10.0);
+        durations.put(BonusType.NUKE, 0.0);
     }
 
     private double x, y;
@@ -66,11 +68,13 @@ public class DroppedBonus {
                 player.get_y() + PlayerShip.height > this.y;
     }
 
-    public void collect(PlayerShip player, MineSystem mineSystem) {
+    public void collect(PlayerShip player, MineSystem mineSystem, GameField field) {
         if (this.type == BonusType.REPAIR) {
             player.heal(heal_amount);
         } else if (this.type == BonusType.MINES) {
             mineSystem.deployMines();
+        } else if (this.type == BonusType.NUKE) {
+            field.getPlayerNuke().activate(field.getEnemies());
         } else {
             double duration = durations.get(this.type);
             player.activateBonus(this.type, duration);

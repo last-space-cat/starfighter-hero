@@ -35,6 +35,9 @@ public class GameField extends Pane {
     public List<Enemy> getSpawnQueue() {return enemy_spawn_queue;}
     private final BonusSystem bonusManager = new BonusSystem();
     private final MineSystem mineManager = new MineSystem();
+    private final PlayerNuke playerNuke = new PlayerNuke();
+    public PlayerNuke getPlayerNuke() { return playerNuke; }
+    public List<Enemy> getEnemies() { return enemies; }
 
     public GameField(ScreenManager handling_manager, double width, double height, CampaignState state){
         current_state = state;
@@ -78,6 +81,7 @@ public class GameField extends Pane {
         bossAttackManager.clear(); // очищаем ракеты боссов и зоны бомб
         bonusManager.clear(); //очищаем бонусы на поле
         mineManager.clear(); //очищаем мины
+        playerNuke.clear();
         player.update_from_state(current_state); //применяем к игроку апгрейды (на хп, скорость и т.п)
         battleManager.update_from_state(current_state); //применяем апгрейды на атаку и т. п.
         PlayerBullet.update_from_state(current_state); //применяем апгрейды, имеющие отношение к пулям игрока
@@ -93,14 +97,13 @@ public class GameField extends Pane {
     public void update(double dt){
         player.update(dt, pressed_keys, canvas.getWidth(), canvas.getHeight());
         battleManager.update_bullets(dt, player, pressed_keys, canvas.getWidth(), enemies);
-        bonusManager.update(dt, player, mineManager);
+        bonusManager.update(dt, player, mineManager, this);
         bossAttackManager.update(dt, player);
         backgroundManager.update(dt, canvas.getWidth(), canvas.getHeight());
         mineManager.checkCollisions(enemies);
+        playerNuke.update(dt);
 
-        for (Enemy enemy : enemies) {
-            enemy.update(dt, player);
-        }
+        for (Enemy enemy : enemies) {enemy.update(dt, player);}
 
         battleManager.check_collisions(enemies, bonusManager);
         waveManager.update(dt, enemy_spawn_queue);
@@ -132,6 +135,7 @@ public class GameField extends Pane {
         graph_context.drawImage(player.get_sprite(), player.get_x(), player.get_y(), PlayerShip.width, PlayerShip.height);
         player.render_shield(graph_context);
         mineManager.render(graph_context);
+        playerNuke.render(graph_context); // Обязательно в конце, чтобы накрыть весь экран сверху
 
         battleManager.render_bullets(graph_context);
         for (Enemy enemy : enemies) {
