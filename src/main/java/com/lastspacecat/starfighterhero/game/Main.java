@@ -32,6 +32,7 @@ public class Main extends Application{
         DefeatScreen defeat_menu = new DefeatScreen(manager, state);
         VictoryScreen victory_menu = new VictoryScreen(manager);
         UpgradeMenu upgrade_menu = new UpgradeMenu(manager, state);
+        SandboxField sandbox_field = new SandboxField(manager, screen_width, screen_height, state);
         manager.set_main_reference(main_menu);
         manager.set_load_reference(load_menu);
         manager.set_game_reference(game_field);
@@ -39,7 +40,7 @@ public class Main extends Application{
         manager.set_def_reference(defeat_menu);
         manager.set_win_reference(victory_menu);
         manager.set_upgrade_reference(upgrade_menu);
-        //НЕ ЗАБЫВАТЬ ЗДЕСЬ ВЫЗЫВАТЬ СЕТТЕРЫ НА ВСЕ НУЖНЫЕ ЭКРАНЫ
+        manager.set_sand_reference(sandbox_field);
         manager.go_to_main();
 
         String css = this.getClass().getResource("/styles.css").toExternalForm();

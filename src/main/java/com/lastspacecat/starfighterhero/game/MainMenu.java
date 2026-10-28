@@ -14,20 +14,21 @@ public class MainMenu extends StackPane{
         Button button_play = init_menu_button("New Game");
         Button button_resume = init_menu_button("Resume");
         Button button_load = init_menu_button("Load Game");
+        Button button_sand = init_menu_button("Sandbox Mode");
         Button button_quit = init_menu_button("Quit");
 
-        //ДОБАВИТЬ ЛОГИКУ НА 3 КНОПКУ
         button_play.setOnAction(event->
             {current_state.reset(); handling_manager.go_to_game(current_state.getCurrent_level());});
         button_resume.setOnAction(event->
                 {if (current_state.getUpgrade_points() > 0){handling_manager.go_to_upgrades();}
                 else {handling_manager.go_to_game(current_state.getCurrent_level());}});
         button_load.setOnAction(event-> handling_manager.go_to_load());
+        button_sand.setOnAction(event->handling_manager.go_to_sandbox());
         button_quit.setOnAction(event-> Platform.exit());
 
         VBox box = new VBox(Main.screen_height*0.02);
         box.setAlignment(Pos.CENTER);
-        box.getChildren().addAll(button_play, button_resume, button_load, button_quit);
+        box.getChildren().addAll(button_play, button_resume, button_load, button_sand, button_quit);
 
         getChildren().add(box);
         setAlignment(Pos.CENTER);

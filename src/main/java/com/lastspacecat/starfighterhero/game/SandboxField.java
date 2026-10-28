@@ -1,0 +1,136 @@
+package com.lastspacecat.starfighterhero.game;
+
+import com.lastspacecat.starfighterhero.enemies.*;
+import javafx.geometry.Pos;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+
+public class SandboxField extends Pane {
+    private final CampaignState current_state;
+    private final Canvas canvas;
+    private final GraphicsContext graph_context;
+    private final ScreenManager screen_manager;
+    private final PlayerShip player;
+    private final Set<KeyCode> pressed_keys = EnumSet.noneOf(KeyCode.class);
+    private final ScrollingBackground backgroundManager = new ScrollingBackground("/game_background_temp.png", 40);
+    private final BattleSystem battleManager = new BattleSystem();
+    private SandboxTimer game_loop;
+    private final HUD hud;
+    private boolean paused = false;
+    private final List<Enemy> enemies = new ArrayList<>();
+    private final List<Enemy> enemy_spawn_queue = new ArrayList<>();
+    public List<EnemyRocket> getRockets() { return bossAttackManager.getRockets(); }
+    public List<NuclearZone> getZones() { return bossAttackManager.getZones(); }
+    public List<EnemyBullet> getLasers() { return bossAttackManager.getLasers(); }
+    public List<Enemy> getSpawnQueue() {return enemy_spawn_queue;}
+    private final EnemyAttackSystem bossAttackManager = new EnemyAttackSystem();
+    private final BonusSystem bonusManager = new BonusSystem();
+    private final MineSystem mineManager = new MineSystem();
+    private final SandboxControls controls;
+
+    public SandboxField(ScreenManager handling_manager, double width, double height, CampaignState state){
+        current_state = state;
+        screen_manager = handling_manager;
+        canvas = new Canvas(width, height);
+        graph_context = canvas.getGraphicsContext2D();
+        player = new PlayerShip(Main.screen_width*0.05, Main.screen_height*0.5);
+        getChildren().add(canvas);
+
+        Button pause_button = new Button("||");
+        pause_button.setPrefSize(Main.screen_height*0.07, Main.screen_height*0.07);
+        pause_button.getStyleClass().add("menu-button");
+        pause_button.relocate(Main.screen_width-Main.screen_height*0.07-20, 20);
+        getChildren().add(pause_button);
+        pause_button.setOnAction(event -> screen_manager.toggle_pause());
+
+        controls = new SandboxControls(enemy_spawn_queue, this);
+        getChildren().add(controls);
+        controls.relocate(0, Main.screen_height - Main.screen_width*0.08);
+        hud = new HUD(player);
+        getChildren().add(hud);
+        game_loop = new SandboxTimer();
+        game_loop.set_parent(this);
+        setup_input();
+    }
+
+    private void setup_input(){
+        setFocusTraversable(true);
+        setOnMouseClicked(event->requestFocus());
+        setOnKeyPressed(event-> pressed_keys.add(event.getCode()));
+        setOnKeyReleased(event-> pressed_keys.remove(event.getCode()));
+        focusedProperty().addListener((obs, was, is)-> {if (!is) pressed_keys.clear();});
+    }
+
+    public void start_sandbox(){
+        paused = false; //снимаем паузу, если она есть
+        enemies.clear(); //очищаем список врагов
+        enemy_spawn_queue.clear(); //очищаем очередь появления врагов
+        battleManager.clear_bullets(); //очищаем список пуль
+        bossAttackManager.clear(); // очищаем ракеты боссов и зоны бомб
+        bonusManager.clear(); //очищаем бонусы на поле
+        mineManager.clear(); //очищаем мины
+        current_state.reset(); //очищаем состояние кампании
+        player.update_from_state(current_state); //применяем к игроку апгрейды (на хп, скорость и т.п)
+        battleManager.update_from_state(current_state); //применяем апгрейды на атаку и т. п.
+        PlayerBullet.update_from_state(current_state); //применяем апгрейды, имеющие отношение к пулям игрока
+        DroppedBonus.update_from_state(current_state); //применяем апгрейды к бонусам
+        PlayerMine.update_from_state(current_state); //применяем апгрейды к минам
+        player.init_player(); //отправляем игрока на стартовую позицию и восполняем ХП
+        game_loop.unpause();
+    }
+
+    public void pause(){game_loop.stop(); paused = true;}
+    public void unpause(){game_loop.unpause(); paused = false;}
+
+    public void update(double dt){
+        player.update(dt, pressed_keys, canvas.getWidth(), canvas.getHeight());
+        battleManager.update_bullets(dt, player, pressed_keys, canvas.getWidth(), enemies);
+        bonusManager.update(dt, player, mineManager);
+        bossAttackManager.update(dt, player);
+        backgroundManager.update(dt, canvas.getWidth(), canvas.getHeight());
+        mineManager.checkCollisions(enemies);
+
+        for (Enemy enemy : enemies) {
+            enemy.update(dt, player);
+        }
+
+        battleManager.check_collisions(enemies, bonusManager);
+        hud.update();
+
+        if (!enemy_spawn_queue.isEmpty()) {
+            enemies.addAll(enemy_spawn_queue);
+            enemy_spawn_queue.clear();
+        }
+
+        player.resolve_collisions(enemies);
+
+        render();
+    }
+
+    private void render(){
+        backgroundManager.render(graph_context, canvas.getWidth(), canvas.getHeight());
+        bossAttackManager.render(graph_context);
+        bonusManager.render(graph_context);
+        graph_context.drawImage(player.get_sprite(), player.get_x(), player.get_y(), PlayerShip.width, PlayerShip.height);
+        player.render_shield(graph_context);
+        mineManager.render(graph_context);
+
+        battleManager.render_bullets(graph_context);
+        for (Enemy enemy : enemies) {
+            graph_context.drawImage(enemy.get_sprite(), enemy.get_x(), enemy.get_y(), enemy.get_width(), enemy.get_height());
+
+            if (enemy instanceof ShieldEnemy) {((ShieldEnemy) enemy).render_shield(graph_context);}
+            if (enemy instanceof BossDreadnought) {((BossDreadnought) enemy).renderShields(graph_context);}
+        }
+    }
+
+    public boolean is_paused() {return paused;}
+}
