@@ -3,23 +3,34 @@ package com.lastspacecat.starfighterhero.game;
 import com.lastspacecat.starfighterhero.enemies.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
 import java.util.List;
 
-public class PlayerNuke {
-    private final double flashDuration = 1.8;
-    private double timer = 0.0;
-    private boolean active = false;
+public final class PlayerNuke {
+    private static final double flashDuration = 1.8;
+    private static double timer = 0.0;
+    private static boolean active = false;
+    private static double blast_radius = 0.5;
+    private static int damage = 10;
 
-    public void activate(List<Enemy> enemies) {
-        this.timer = flashDuration;
-        this.active = true;
+    private PlayerNuke(){}
+
+    public static void activate(List<Enemy> enemies, PlayerShip player) {
+        timer = flashDuration;
+        active = true;
+        double x = player.get_x();
+        double y = player.get_y();
 
         for (Enemy enemy : enemies) {
-            enemy.takeDamage(100);
+            if (Math.sqrt((x-enemy.get_x())*(x-enemy.get_x()) + (y-enemy.get_y())*(y-enemy.get_y())) <= Main.screen_width*blast_radius){
+                enemy.takeDamage(damage);
+            }
         }
+
+        player.activeEffects.setHas_nuke(false);
     }
 
-    public void update(double dt) {
+    public static void update(double dt) {
         if (!active) return;
 
         timer -= dt;
@@ -28,22 +39,23 @@ public class PlayerNuke {
         }
     }
 
-    public void render(GraphicsContext gc) {
+    public static void render(GraphicsContext gc, double x, double y) {
         if (!active) return;
-
         double alpha = (timer / flashDuration) * 0.85;
-
+        double blast = Main.screen_width * blast_radius;
         gc.save();
         gc.setFill(Color.rgb(255, 140, 35, alpha));
-        gc.fillRect(0, 0, Main.screen_width, Main.screen_height);
+        gc.fillOval(x-blast/2, y-blast/2, blast, blast);
         gc.restore();
     }
 
-    public boolean isActive() {
-        return active;
+    public static void clear() {
+        active = false;
+        timer = 0.0;
     }
-    public void clear() {
-        this.active = false;
-        this.timer = 0.0;
+
+    public static void update_from_state(CampaignState state){
+        if (state.upgrade_states.get(11) == 2) { blast_radius = 2.0; damage = 40; }
+        else { blast_radius = 0.5; damage = 10; }
     }
 }

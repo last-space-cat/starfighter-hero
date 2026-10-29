@@ -37,8 +37,8 @@
           "desc": "Overhaul internal workings of the ship for greater redundancy, allowing the ship to function perfectly with as little as 32% hull integrity, 66% engine output or 50% of pilot limbs remaining. +1 HP."
         },
         {
-          "name": "Advanced Generator",
-          "desc": ""
+          "name": "Generator Matrix",
+          "desc": "Install an experimental matrix that can automatically raise shields. Powered through excess main reactor output that was previously radiated into space. Automatically creates a Shield every 15 seconds."
         }
       ]
     },
@@ -51,15 +51,15 @@
         },
         {
           "name": "Repurposed ICBM",
-          "desc": ""
+          "desc": "Reuse old decommissioned planet-based ballistic missiles to store your nuclear armaments. Allows to store one Nuclear Bomb until the end of the level. Press X to detonate the stored bomb."
         },
         {
           "name": "Use More Gun",
           "desc": "As a wise man said - when enemies are everywhere, SHOOT EVERYWHERE. Multi-Fire fires in six directions instead of three."
         },
         {
-          "name": "Thermonuclear Warhead",
-          "desc": ""
+          "name": "Thermonuclear Bomb",
+          "desc": "When two hydrogen atoms meet each other and fall in love, their love becomes the most powerful force in the universe. Unleash it upon your enemies. Nuclear Bomb +300% damage, damages all enemies on screen."
         }
       ]
     },
@@ -75,8 +75,8 @@
           "desc": "Replace the outdated high explosive payload in your Mines with a new plasma ejection system. The newer system delivers just as much devastation in an increased radius. Mine explosion radius +100%."
         },
         {
-          "name": "Containment Field",
-          "desc": ""
+          "name": "Hardened Shield",
+          "desc": "Replace cheap original wiring in your shield generator with actually good components that can handle a little overload. +200% Shield durability."
         },
         {
           "name": "Nanobot Integration",

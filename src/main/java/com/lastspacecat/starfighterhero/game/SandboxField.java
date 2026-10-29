@@ -34,8 +34,6 @@ public class SandboxField extends Pane {
     private final BonusSystem bonusManager = new BonusSystem();
     private final MineSystem mineManager = new MineSystem();
     private final SandboxControls controls;
-    private final PlayerNuke playerNuke = new PlayerNuke();
-    public PlayerNuke getPlayerNuke() { return playerNuke; }
     public List<Enemy> getEnemies() { return enemies; }
     public BonusSystem getBonusManager() { return bonusManager; }
 
@@ -44,7 +42,7 @@ public class SandboxField extends Pane {
         screen_manager = handling_manager;
         canvas = new Canvas(width, height);
         graph_context = canvas.getGraphicsContext2D();
-        player = new PlayerShip(Main.screen_width*0.05, Main.screen_height*0.5);
+        player = new PlayerShip();
         getChildren().add(canvas);
 
         Button pause_button = new Button("||");
@@ -86,6 +84,7 @@ public class SandboxField extends Pane {
         PlayerBullet.update_from_state(current_state); //применяем апгрейды, имеющие отношение к пулям игрока
         DroppedBonus.update_from_state(current_state); //применяем апгрейды к бонусам
         PlayerMine.update_from_state(current_state); //применяем апгрейды к минам
+        PlayerNuke.update_from_state(current_state); //применяем апгрейды к ядерной бомбе
         player.init_player(); //отправляем игрока на стартовую позицию и восполняем ХП
         game_loop.unpause();
     }
@@ -99,14 +98,15 @@ public class SandboxField extends Pane {
         PlayerBullet.update_from_state(current_state);
         DroppedBonus.update_from_state(current_state);
         PlayerMine.update_from_state(current_state);
+        PlayerNuke.update_from_state(current_state);
 
         player.update(dt, pressed_keys, canvas.getWidth(), canvas.getHeight());
-        battleManager.update_bullets(dt, player, pressed_keys, canvas.getWidth(), enemies);
+        battleManager.update_bullets(dt, player, pressed_keys, enemies);
         bonusManager.update(dt, player, mineManager, this);
         bossAttackManager.update(dt, player);
         backgroundManager.update(dt, canvas.getWidth(), canvas.getHeight());
         mineManager.checkCollisions(enemies);
-        playerNuke.update(dt);
+        PlayerNuke.update(dt);
 
         for (Enemy enemy : enemies) {
             enemy.update(dt, player);
@@ -121,7 +121,6 @@ public class SandboxField extends Pane {
         }
 
         player.resolve_collisions(enemies);
-
         render();
     }
 
@@ -132,7 +131,7 @@ public class SandboxField extends Pane {
         graph_context.drawImage(player.get_sprite(), player.get_x(), player.get_y(), PlayerShip.width, PlayerShip.height);
         player.render_shield(graph_context);
         mineManager.render(graph_context);
-        playerNuke.render(graph_context);
+        PlayerNuke.render(graph_context, player.get_x(), player.get_y());
 
         battleManager.render_bullets(graph_context);
         for (Enemy enemy : enemies) {

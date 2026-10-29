@@ -30,7 +30,7 @@ public class EnemyAttackSystem {
                     rocket.getY() < player.get_y() + PlayerShip.height &&
                     rocket.getY() + EnemyRocket.size > player.get_y()) {
 
-                if (!player.isShieldActive()) {
+                if (!player.activeEffects.isShieldActive()) {
                     player.takeDamage(1);
                 }
                 enemyRockets.remove(i);
@@ -55,7 +55,7 @@ public class EnemyAttackSystem {
                     laser.get_y() < player.get_y() + PlayerShip.height &&
                     laser.get_y() + EnemyBullet.height > player.get_y()) {
 
-                if (!player.isShieldActive()) {
+                if (!player.activeEffects.isShieldActive()) {
                     player.takeDamage(1);
                 }
                 enemyLasers.remove(i);

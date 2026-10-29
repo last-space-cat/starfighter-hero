@@ -18,12 +18,12 @@ public class BattleSystem {
     private boolean isLaserFiringThisFrame = false;
     private boolean hasSixBullets = false;
 
-    public void update_bullets(double dt, PlayerShip player, Set<KeyCode> pressed_keys, double max_width, List<Enemy> enemies) {
+    public void update_bullets(double dt, PlayerShip player, Set<KeyCode> pressed_keys, List<Enemy> enemies) {
         if (fire_cooldown > 0) {
             fire_cooldown -= dt;
         }
         isLaserFiringThisFrame = false;
-        if (player.isLaserActive()) {
+        if (player.activeEffects.isLaserActive()) {
             if (pressed_keys.contains(KeyCode.SPACE)) {
                 isLaserFiringThisFrame = true;
                 playerLaser.update(dt, player, enemies, player_damage);
@@ -41,11 +41,14 @@ public class BattleSystem {
             return;
         }
 
+        if (pressed_keys.contains(KeyCode.X) && player.activeEffects.getHas_nuke())
+        { PlayerNuke.activate(enemies, player);}
+
         if (pressed_keys.contains(KeyCode.SPACE) && fire_cooldown <= 0) { //СТРЕЛЬБА
             double bullet_x = player.get_x() + PlayerShip.width * 0.9;
             double bullet_y = player.get_y() + (PlayerShip.height * 0.77) - (EnemyBullet.height / 2);
 
-            if (player.isTripleFireActive()) {
+            if (player.activeEffects.isTripleFireActive()) {
                 playerBullets.add(new PlayerBullet(bullet_x, bullet_y, 0, 1));  //центр
                 playerBullets.add(new PlayerBullet(bullet_x, bullet_y, -1, 1)); //верх
                 playerBullets.add(new PlayerBullet(bullet_x, bullet_y, 1, 1));  //низ

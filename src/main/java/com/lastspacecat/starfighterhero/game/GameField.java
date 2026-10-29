@@ -25,7 +25,6 @@ public class GameField extends Pane {
     private GameTimer game_loop;
     private final HUD hud;
     private boolean paused = false;
-    private LevelData level;
     private final List<Enemy> enemies = new ArrayList<>();
     private final List<Enemy> enemy_spawn_queue = new ArrayList<>();
     private final EnemyAttackSystem bossAttackManager = new EnemyAttackSystem();
@@ -35,8 +34,6 @@ public class GameField extends Pane {
     public List<Enemy> getSpawnQueue() {return enemy_spawn_queue;}
     private final BonusSystem bonusManager = new BonusSystem();
     private final MineSystem mineManager = new MineSystem();
-    private final PlayerNuke playerNuke = new PlayerNuke();
-    public PlayerNuke getPlayerNuke() { return playerNuke; }
     public List<Enemy> getEnemies() { return enemies; }
 
     public GameField(ScreenManager handling_manager, double width, double height, CampaignState state){
@@ -44,7 +41,7 @@ public class GameField extends Pane {
         screen_manager = handling_manager;
         canvas = new Canvas(width, height);
         graph_context = canvas.getGraphicsContext2D();
-        player = new PlayerShip(Main.screen_width*0.05, Main.screen_height*0.5);
+        player = new PlayerShip();
         getChildren().add(canvas);
 
         Button pause_button = new Button("||");
@@ -72,22 +69,22 @@ public class GameField extends Pane {
     }
 
     public void start_level(String level_path){
-        level = LevelLoader.load_level(level_path); //загружаем нужный уровень
-        waveManager.setLevel(level); //передаем его менеджеру волн
-        paused = false; //снимаем паузу, если она есть
+        waveManager.setLevel(LevelLoader.load_level(level_path)); //загружаем уровень и передаем его менеджеру волн
         enemies.clear(); //очищаем список врагов
         enemy_spawn_queue.clear(); //очищаем очередь появления врагов
         battleManager.clear_bullets(); //очищаем список пуль
         bossAttackManager.clear(); // очищаем ракеты боссов и зоны бомб
         bonusManager.clear(); //очищаем бонусы на поле
         mineManager.clear(); //очищаем мины
-        playerNuke.clear();
+        PlayerNuke.clear();
         player.update_from_state(current_state); //применяем к игроку апгрейды (на хп, скорость и т.п)
         battleManager.update_from_state(current_state); //применяем апгрейды на атаку и т. п.
         PlayerBullet.update_from_state(current_state); //применяем апгрейды, имеющие отношение к пулям игрока
         DroppedBonus.update_from_state(current_state); //применяем апгрейды к бонусам
         PlayerMine.update_from_state(current_state); //применяем апгрейды к минам
+        PlayerNuke.update_from_state(current_state); //применяем апгрейды к ядерной бомбе
         player.init_player(); //отправляем игрока на стартовую позицию и восполняем ХП
+        paused = false; //снимаем паузу, если она есть
         game_loop.unpause();
     }
 
@@ -96,12 +93,12 @@ public class GameField extends Pane {
 
     public void update(double dt){
         player.update(dt, pressed_keys, canvas.getWidth(), canvas.getHeight());
-        battleManager.update_bullets(dt, player, pressed_keys, canvas.getWidth(), enemies);
+        battleManager.update_bullets(dt, player, pressed_keys, enemies);
         bonusManager.update(dt, player, mineManager, this);
         bossAttackManager.update(dt, player);
         backgroundManager.update(dt, canvas.getWidth(), canvas.getHeight());
         mineManager.checkCollisions(enemies);
-        playerNuke.update(dt);
+        PlayerNuke.update(dt);
 
         for (Enemy enemy : enemies) {enemy.update(dt, player);}
 
@@ -135,7 +132,7 @@ public class GameField extends Pane {
         graph_context.drawImage(player.get_sprite(), player.get_x(), player.get_y(), PlayerShip.width, PlayerShip.height);
         player.render_shield(graph_context);
         mineManager.render(graph_context);
-        playerNuke.render(graph_context); // Обязательно в конце, чтобы накрыть весь экран сверху
+        PlayerNuke.render(graph_context, player.get_x(), player.get_y()); // Обязательно в конце, чтобы накрыть экран сверху
 
         battleManager.render_bullets(graph_context);
         for (Enemy enemy : enemies) {
