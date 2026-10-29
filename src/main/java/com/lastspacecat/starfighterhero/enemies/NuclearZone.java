@@ -25,7 +25,7 @@ public class NuclearZone {
                 double dx = player.get_x() - x;
                 double dy = player.get_y() - y;
                 if (Math.sqrt(dx*dx + dy*dy) < radius) {
-                    if (!player.isShieldActive()) {
+                    if (!player.activeEffects.isShieldActive()) {
                         player.takeDamage(1);
                     }
                 }

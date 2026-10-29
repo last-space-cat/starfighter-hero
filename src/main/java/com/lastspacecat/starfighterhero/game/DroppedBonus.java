@@ -28,6 +28,7 @@ public class DroppedBonus {
     }
 
     private static final Map<BonusType, Double> durations  = new EnumMap<>(BonusType.class);
+    private static boolean nuke_storage = false;
 
     static {
         durations.put(BonusType.SHIELD, 15.0);
@@ -74,7 +75,8 @@ public class DroppedBonus {
         } else if (this.type == BonusType.MINES) {
             mineSystem.deployMines();
         } else if (this.type == BonusType.NUKE) {
-            field.getPlayerNuke().activate(field.getEnemies());
+            if (nuke_storage && !(player.activeEffects.getHas_nuke())) {player.activeEffects.setHas_nuke(true);}
+            else { PlayerNuke.activate(field.getEnemies(), player); }
         } else {
             double duration = durations.get(this.type);
             player.activateBonus(this.type, duration);
@@ -87,7 +89,8 @@ public class DroppedBonus {
         } else if (this.type == BonusType.MINES) {
             mineSystem.deployMines();
         } else if (this.type == BonusType.NUKE) {
-            field.getPlayerNuke().activate(field.getEnemies());
+            if (nuke_storage && !(player.activeEffects.getHas_nuke())) {player.activeEffects.setHas_nuke(true);}
+            else { PlayerNuke.activate(field.getEnemies(), player); }
         } else {
             double duration = durations.get(this.type);
             player.activateBonus(this.type, duration);
@@ -106,5 +109,8 @@ public class DroppedBonus {
             if (state.upgrade_states.get(15) == 2) { heal_amount = 5; }
             else { heal_amount = 2; }
         } else { heal_amount = 1; }
+
+        if (state.upgrade_states.get(9) == 2) { nuke_storage = true; }
+        else { nuke_storage = false; }
     }
 }

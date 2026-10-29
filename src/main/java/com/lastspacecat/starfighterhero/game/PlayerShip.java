@@ -7,8 +7,6 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 import java.util.Set;
-import java.util.Map;
-import java.util.HashMap;
 
 public class PlayerShip {
     private double x, y;
@@ -18,11 +16,11 @@ public class PlayerShip {
     private int current_hp;
     private int max_hp;
     private final Image sprite;
-    private final Map<DroppedBonus.BonusType, Double> activeEffects = new HashMap<>();
+    public final ActiveBonuses activeEffects = new ActiveBonuses();
 
-    PlayerShip(double starting_x, double starting_y){ //ПОЗЖЕ НУЖНО ДОБАВИТЬ В КОНСТРУКТОР Campaign_State для установки апгрейдов
+    PlayerShip(){
         velocity = Main.screen_width*0.25;
-        max_hp = 3; //ПОЗЖЕ ЗДЕСЬ ИЗМЕНЕНИЯ С АПГРЕЙДАМИ
+        max_hp = 3;
         init_player();
         this.sprite = new Image(getClass().getResourceAsStream("/PLAYER_ship.png"));
     }
@@ -50,21 +48,12 @@ public class PlayerShip {
             dx *= 1/Math.sqrt(2);
             dy *= 1/Math.sqrt(2);
         }
-
         x += dx*velocity;
         y += dy*velocity;
-
         x = Math.clamp(x, 0, Main.screen_width - width);
         y = Math.clamp(y, 0, Main.screen_height - height);
 
-        activeEffects.entrySet().removeIf(entry -> {
-            double timeLeft = entry.getValue() - dt;
-            if (timeLeft <= 0) {
-                return true;
-            }
-            entry.setValue(timeLeft);
-            return false;
-        });
+        activeEffects.update(dt);
     }
 
     public int get_current_HP(){
@@ -74,19 +63,16 @@ public class PlayerShip {
     public void takeDamage(int amount) {this.current_hp -= amount;}
 
     public void activateBonus(DroppedBonus.BonusType type, double duration) {
-        double currentDuration = activeEffects.getOrDefault(type, 0.0);
+        double currentDuration = activeEffects.getActiveEffects().getOrDefault(type, 0.0);
         activeEffects.put(type, Math.max(currentDuration, duration));
     }
-    public boolean isShieldActive() {return activeEffects.containsKey(DroppedBonus.BonusType.SHIELD);}
-    public boolean isTripleFireActive() {return activeEffects.containsKey(DroppedBonus.BonusType.TRIPLE_FIRE);}
-    public boolean isLaserActive() {return activeEffects.containsKey(DroppedBonus.BonusType.LASER);}
 
     public void resolve_collisions(List<Enemy> enemies){
         for (Enemy enemy : enemies){
             if (enemy.get_x() + enemy.get_width() > x && enemy.get_x() < (x+width)){
                 if (enemy.get_y() + enemy.get_height() > y && enemy.get_y() <(y+height)){
-                    if (isShieldActive()) {
-                        activeEffects.remove(DroppedBonus.BonusType.SHIELD);
+                    if (activeEffects.isShieldActive()) {
+                        activeEffects.take_shield_damage(1);
                     } else {
                         current_hp -= 1;
                     }
@@ -100,16 +86,6 @@ public class PlayerShip {
         }
     }
 
-    public void update_from_state(CampaignState state){
-        if (state.upgrade_states.get(4) == 2){
-            if (state.upgrade_states.get(6) == 2) max_hp = 5;
-            else max_hp = 4;
-        } else max_hp = 3;
-
-        if (state.upgrade_states.get(5) == 2){ velocity = Main.screen_width*0.36; }
-        else { velocity = Main.screen_width*0.24; }
-    }
-
     public void heal(int amount) {
         this.current_hp += amount;
         if (this.current_hp > this.max_hp) {
@@ -118,7 +94,7 @@ public class PlayerShip {
     }
 
     public void render_shield(javafx.scene.canvas.GraphicsContext graph_context) {
-        if (isShieldActive()) {
+        if (activeEffects.isShieldActive()) {
             double center_x = x + width / 2;
             double center_y = y + height / 2;
             double padding = Main.screen_height * 0.01;
@@ -133,5 +109,17 @@ public class PlayerShip {
             graph_context.setLineWidth(4);
             graph_context.strokeOval(draw_x, draw_y, diameter, diameter);
         }
+    }
+
+    public void update_from_state(CampaignState state){
+        if (state.upgrade_states.get(4) == 2){
+            if (state.upgrade_states.get(6) == 2) max_hp = 5;
+            else max_hp = 4;
+        } else max_hp = 3;
+
+        if (state.upgrade_states.get(5) == 2){ velocity = Main.screen_width*0.36; }
+        else { velocity = Main.screen_width*0.24; }
+
+        activeEffects.update_from_state(state);
     }
 }

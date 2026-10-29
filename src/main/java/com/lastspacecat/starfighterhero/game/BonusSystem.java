@@ -46,8 +46,6 @@ public class BonusSystem {
         }
     }
 
-
-
     public void render(GraphicsContext gc) {
         for (DroppedBonus bonus : activeBonuses) {
             bonus.render(gc);
