@@ -16,6 +16,13 @@
     -fx-text-fill: #88e788;
 }
 
+.load-menu-header{
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-font-family: 'Courier New';
+    -fx-text-fill: #88e788;
+}
+
 .end-screen-button{
     -fx-font-size: 20;
     -fx-font-family: 'Courier New';
@@ -69,6 +76,15 @@
     -fx-fill: #88e788;
     -fx-stroke: black;
     -fx-stroke-width: 5;
+    -fx-stroke-type: outside;
+}
+
+.global-win-screen-header{
+    -fx-font-size: 40;
+    -fx-font-family: 'Courier New';
+    -fx-fill: #88e788;
+    -fx-stroke: black;
+    -fx-stroke-width: 2;
     -fx-stroke-type: outside;
 }
 

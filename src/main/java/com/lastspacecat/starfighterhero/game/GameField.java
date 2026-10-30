@@ -21,7 +21,7 @@ public class GameField extends Pane {
     private final Set<KeyCode> pressed_keys = EnumSet.noneOf(KeyCode.class);
     private final ScrollingBackground backgroundManager = new ScrollingBackground("/game_background_temp.png", 40);
     private final BattleSystem battleManager = new BattleSystem();
-    private WaveSystem waveManager = new WaveSystem();
+    private final WaveSystem waveManager = new WaveSystem();
     private GameTimer game_loop;
     private final HUD hud;
     private boolean paused = false;
@@ -118,9 +118,12 @@ public class GameField extends Pane {
 
         if (waveManager.isFinished()){
             if (enemies.isEmpty()){
-                current_state.setCurrent_level(current_state.getCurrent_level()+1);
-                current_state.setUpgrade_points(current_state.getUpgrade_points()+2);
-                screen_manager.show_win_screen();
+                if (current_state.getCurrent_level() < current_state.getMax_level()) {
+                    current_state.setCurrent_level(current_state.getCurrent_level() + 1);
+                    current_state.setUpgrade_points(current_state.getUpgrade_points() + 2);
+                    screen_manager.show_win_screen();
+                }
+                else screen_manager.show_global_win_screen();
             }
         }
     }
