@@ -15,7 +15,7 @@ public class ScreenManager {
     private VictoryScreen win_reference;
     private UpgradeMenu up_reference;
     private SandboxField sand_reference;
-    // КОГДА ЭКРАНОВ СТАНЕТ БОЛЬШЕ, НУЖНО ДОБАВИТЬ НА КАЖДЫЙ ИЗ НИХ ССЫЛКУ ЗДЕСЬ
+    private GlobalVictoryScreen global_win_reference;
 
     public ScreenManager(Scene scene){
         this.scene = scene;
@@ -29,6 +29,7 @@ public class ScreenManager {
     public void set_win_reference(VictoryScreen new_ref){this.win_reference = new_ref; }
     public void set_upgrade_reference(UpgradeMenu new_ref){this.up_reference = new_ref; }
     public void set_sand_reference(SandboxField new_ref){this.sand_reference = new_ref; }
+    public void set_global_win_reference(GlobalVictoryScreen new_ref){this.global_win_reference = new_ref; }
 
     public void go_to_main(){
         this.scene.setRoot(main_reference);
@@ -108,6 +109,17 @@ public class ScreenManager {
     }
 
     public void hide_win_screen(){game_reference.getChildren().remove(win_reference);}
+
+    public void show_global_win_screen () {
+        game_reference.getChildren().add(global_win_reference);
+        global_win_reference.relocate(
+                Screen.getPrimary().getBounds().getWidth()*0.2,
+                Screen.getPrimary().getBounds().getHeight()*0.2
+        );
+        game_reference.pause();
+    }
+
+    public void hide_global_win_screen(){game_reference.getChildren().remove(global_win_reference);}
 
     public void go_to_sandbox(){
         this.scene.setRoot(sand_reference);

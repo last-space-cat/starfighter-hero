@@ -13,7 +13,7 @@ public class MainMenu extends StackPane{
         current_state = state;
         Button button_play = init_menu_button("New Game");
         Button button_resume = init_menu_button("Resume");
-        Button button_load = init_menu_button("Load Game");
+        Button button_load = init_menu_button("Save/Load");
         Button button_sand = init_menu_button("Sandbox Mode");
         Button button_quit = init_menu_button("Quit");
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CampaignState {
     private int current_level;
-    public static final int max_level = 5;
+    public static final int max_level = 4;
     public List<Integer> upgrade_states;
     private int upgrade_points;
 
@@ -33,6 +33,8 @@ public class CampaignState {
     }
 
     public int getUpgrade_points() {return upgrade_points;}
+
+    public int getMax_level() {return max_level; }
 
     public void setUpgrade_points(int upgrade_points) {this.upgrade_points = upgrade_points;}
 

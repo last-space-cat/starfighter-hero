@@ -31,6 +31,7 @@ public class Main extends Application{
         PauseMenu pause_menu = new PauseMenu(manager);
         DefeatScreen defeat_menu = new DefeatScreen(manager, state);
         VictoryScreen victory_menu = new VictoryScreen(manager);
+        GlobalVictoryScreen global_victory_menu = new GlobalVictoryScreen(manager, state);
         UpgradeMenu upgrade_menu = new UpgradeMenu(manager, state);
         SandboxField sandbox_field = new SandboxField(manager, screen_width, screen_height, state);
         manager.set_main_reference(main_menu);
@@ -39,6 +40,7 @@ public class Main extends Application{
         manager.set_pause_reference(pause_menu);
         manager.set_def_reference(defeat_menu);
         manager.set_win_reference(victory_menu);
+        manager.set_global_win_reference(global_victory_menu);
         manager.set_upgrade_reference(upgrade_menu);
         manager.set_sand_reference(sandbox_field);
         manager.go_to_main();
